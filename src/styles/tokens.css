@@ -1,0 +1,145 @@
+:root {
+  /* ==========================================================================
+     1. PALETA CROMÁTICA INSTITUCIONAL (PROPORCIÓN DE ACENTO: 90% / 5% / 5%)
+     ========================================================================== */
+
+  /* Marca Principal (90% de presencia en acentos) */
+  --color-brand-primary: #E00B50;
+  --color-brand-primary-hover: #C20844;
+  --color-brand-primary-active: #A30638;
+  --color-brand-primary-rgb: 224, 11, 80;
+
+  /* Marca Secundaria (5% - informativa y detalles específicos) */
+  --color-brand-secondary: #58C3E3;
+  --color-brand-secondary-hover: #47AECB;
+  --color-brand-secondary-rgb: 88, 195, 227;
+
+  /* Marca Terciaria (5% - énfasis excepcional y alertas) */
+  --color-brand-tertiary: #FE8B01;
+  --color-brand-tertiary-hover: #DF7A00;
+  --color-brand-tertiary-rgb: 254, 139, 1;
+
+  /* ==========================================================================
+     2. NEUTRALES Y SUPERFICIES (ESTÉTICA CINEMATOGRÁFICA OSCURA)
+     ========================================================================== */
+
+  --color-bg-main: #0D0E10;
+  --color-surface: #1A1B1F;
+  --color-surface-elevated: #292A2E;
+  --color-surface-elevated-hover: #33343A;
+
+  /* Superficies translúcidas con soporte de blur */
+  --color-surface-translucent: rgba(26, 27, 31, 0.75);
+  --color-surface-elevated-translucent: rgba(41, 42, 46, 0.85);
+
+  /* Textos */
+  --color-text-primary: #F6F5F3;
+  --color-text-secondary: #B0B0B4;
+  --color-text-muted: #74747A;
+  --color-text-inverse: #0D0E10;
+
+  /* Bordes */
+  --color-border-subtle: rgba(246, 245, 243, 0.07);
+  --color-border-medium: rgba(246, 245, 243, 0.14);
+  --color-border-hover: rgba(246, 245, 243, 0.25);
+  --color-border-primary: rgba(224, 11, 80, 0.4);
+  --color-border-primary-subtle: rgba(224, 11, 80, 0.2);
+
+  /* Overlays */
+  --color-overlay-dark: rgba(13, 14, 16, 0.85);
+  --color-overlay-light: rgba(255, 255, 255, 0.03);
+
+  /* ==========================================================================
+     3. ILUMINACIÓN AMBIENTAL Y RESPLANDOR (AMBIENT LIGHTING)
+     ========================================================================== */
+
+  --glow-pink-subtle: 0 0 35px -5px rgba(224, 11, 80, 0.25);
+  --glow-pink-intense: 0 0 50px -5px rgba(224, 11, 80, 0.45);
+  --glow-blue-subtle: 0 0 30px -5px rgba(88, 195, 227, 0.2);
+  --glow-orange-subtle: 0 0 30px -5px rgba(254, 139, 1, 0.2);
+
+  /* ==========================================================================
+     4. TIPOGRAFÍA Y ESCALA RESPONSIVA (EDITORIAL)
+     ========================================================================== */
+
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Pesos */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Escala tipográfica fluida con clamp() */
+  --text-display: clamp(2.5rem, 6vw, 4.25rem);
+  --text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --text-h2: clamp(1.5rem, 3vw, 2.25rem);
+  --text-h3: clamp(1.25rem, 2vw, 1.625rem);
+  --text-body-large: clamp(1.0625rem, 1.25vw, 1.25rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-caption: 0.75rem;
+
+  /* Interlineado y espaciado de letras */
+  --leading-tight: 1.15;
+  --leading-snug: 1.3;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tighter: -0.035em;
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.05em;
+
+  /* ==========================================================================
+     5. ESPACIADOS Y DIMENSIONES DE CONTENEDORES
+     ========================================================================== */
+
+  --space-1: 0.25rem;  /* 4px */
+  --space-2: 0.5rem;   /* 8px */
+  --space-3: 0.75rem;  /* 12px */
+  --space-4: 1rem;     /* 16px */
+  --space-5: 1.25rem;  /* 20px */
+  --space-6: 1.5rem;   /* 24px */
+  --space-8: 2rem;     /* 32px */
+  --space-10: 2.5rem;  /* 40px */
+  --space-12: 3rem;    /* 48px */
+  --space-16: 4rem;    /* 64px */
+  --space-20: 5rem;    /* 80px */
+  --space-24: 6rem;    /* 96px */
+
+  --container-max-width: 1200px;
+  --container-narrow: 840px;
+
+  /* ==========================================================================
+     6. RADIOS, BORDES Y SOMBRAS
+     ========================================================================== */
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-pill: 9999px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+
+  /* ==========================================================================
+     7. TRANSICIONES Y PREPARACIÓN PARA GSAP
+     ========================================================================== */
+
+  --duration-instant: 100ms;
+  --duration-fast: 200ms;
+  --duration-normal: 350ms;
+  --duration-slow: 600ms;
+  --duration-cinematic: 1000ms;
+
+  --ease-out-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-smooth: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-cinematic: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
