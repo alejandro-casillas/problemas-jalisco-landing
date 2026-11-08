@@ -1,0 +1,936 @@
+/* ==========================================================================
+   CARRUSEL CINEMATOGRÁFICO DE FUNCIONALIDADES Y NAVEGACIÓN (FASE 1.5 / 1.5.1)
+   ========================================================================== */
+
+.showcase-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-top: calc(76px + var(--space-4));
+  padding-bottom: var(--space-5);
+  background-color: var(--color-bg-main);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Iluminación ambiental rosa discreta */
+.showcase-ambient-glow-left {
+  position: absolute;
+  top: 48%;
+  left: 16%;
+  transform: translate(-50%, -50%);
+  width: min(520px, 46vw);
+  height: min(560px, 68vh);
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.15) 0%,
+    rgba(var(--color-brand-primary-rgb), 0.04) 48%,
+    transparent 72%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.showcase-ambient-glow-right {
+  position: absolute;
+  bottom: 8%;
+  right: 6%;
+  width: min(420px, 40vw);
+  height: min(420px, 50vh);
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.07) 0%,
+    transparent 70%
+  );
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.showcase-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: auto;
+  padding: var(--space-2) var(--space-6);
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  align-items: center;
+  gap: clamp(2.25rem, 4.5vw, 5rem);
+}
+
+/* --------------------------------------------------------------------------
+   1. COLUMNA IZQUIERDA — TELÉFONO PROTAGONISTA FRONTAL Y SELECTOR LIGHT/DARK
+   -------------------------------------------------------------------------- */
+
+.showcase-phone-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  position: relative;
+}
+
+.showcase-phone-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-1);
+}
+
+.showcase-phone-pink-halo {
+  position: absolute;
+  inset: 6% 4%;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--color-brand-primary-rgb), 0.28) 0%,
+    rgba(var(--color-brand-primary-rgb), 0.08) 52%,
+    transparent 75%
+  );
+  filter: blur(44px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Teléfono completamente frontal, centrado y con tamaño protagonista */
+.showcase-phone-mockup .phone-chassis {
+  width: clamp(238px, 21vw, 282px);
+  transform: none;
+  box-shadow:
+    0 28px 60px -12px rgba(0, 0, 0, 0.85),
+    0 10px 26px -6px rgba(0, 0, 0, 0.65),
+    0 0 46px -8px rgba(var(--color-brand-primary-rgb), 0.3),
+    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Viewport recortado que aloja las 7 pantallas apiladas para GSAP */
+.showcase-screen-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: #0d0e11;
+}
+
+.showcase-screen-panel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  will-change: transform, opacity;
+}
+
+/* Capas de tema Light / Dark con transición corta de opacidad */
+.showcase-theme-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 240ms var(--ease-out-smooth);
+}
+
+.showcase-theme-layer--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.showcase-fallback-variant-note {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  background: rgba(13, 14, 16, 0.78);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border-subtle);
+  white-space: nowrap;
+  z-index: 4;
+}
+
+/* Contenido provisional de cada pantalla (PANTALLA 1 .. PANTALLA 7) */
+.showcase-provisional-slide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 42px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+}
+
+/* Variante LIGHT (Estado inicial — apariencia clara de la aplicación) */
+.showcase-provisional-slide--light {
+  color: #16171d;
+  background:
+    radial-gradient(
+      circle at 50% 22%,
+      rgba(var(--color-brand-primary-rgb), 0.13) 0%,
+      rgba(var(--color-brand-primary-rgb), 0.03) 48%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f3f4f8 100%);
+}
+
+/* Variante DARK (Apariencia oscura de la aplicación) */
+.showcase-provisional-slide--dark {
+  color: var(--color-text-primary);
+  background:
+    radial-gradient(
+      circle at 50% 24%,
+      rgba(var(--color-brand-primary-rgb), 0.24) 0%,
+      rgba(var(--color-brand-primary-rgb), 0.05) 48%,
+      transparent 76%
+    ),
+    linear-gradient(180deg, #16181e 0%, #0d0e11 100%);
+}
+
+/* Sutiles matices por pantalla en modo Light y Dark para enfatizar las transiciones */
+.showcase-screen-panel--v-2 .showcase-provisional-slide--light,
+.showcase-screen-panel--v-5 .showcase-provisional-slide--light {
+  background:
+    radial-gradient(
+      circle at 32% 28%,
+      rgba(var(--color-brand-primary-rgb), 0.14) 0%,
+      rgba(var(--color-brand-secondary-rgb), 0.06) 54%,
+      transparent 78%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f1f3f9 100%);
+}
+
+.showcase-screen-panel--v-3 .showcase-provisional-slide--light,
+.showcase-screen-panel--v-6 .showcase-provisional-slide--light {
+  background:
+    radial-gradient(
+      circle at 68% 28%,
+      rgba(var(--color-brand-primary-rgb), 0.15) 0%,
+      rgba(var(--color-brand-primary-rgb), 0.03) 52%,
+      transparent 78%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f4f2f7 100%);
+}
+
+.showcase-screen-panel--v-2 .showcase-provisional-slide--dark,
+.showcase-screen-panel--v-5 .showcase-provisional-slide--dark {
+  background:
+    radial-gradient(
+      circle at 32% 30%,
+      rgba(var(--color-brand-primary-rgb), 0.26) 0%,
+      rgba(var(--color-brand-secondary-rgb), 0.05) 55%,
+      transparent 78%
+    ),
+    linear-gradient(180deg, #171820 0%, #0d0e11 100%);
+}
+
+.showcase-screen-panel--v-3 .showcase-provisional-slide--dark,
+.showcase-screen-panel--v-6 .showcase-provisional-slide--dark {
+  background:
+    radial-gradient(
+      circle at 68% 30%,
+      rgba(var(--color-brand-primary-rgb), 0.27) 0%,
+      rgba(var(--color-brand-primary-rgb), 0.05) 52%,
+      transparent 78%
+    ),
+    linear-gradient(180deg, #18161d 0%, #0d0e11 100%);
+}
+
+.showcase-provisional-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.showcase-provisional-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.22rem 0.6rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+}
+
+.showcase-provisional-slide--light .showcase-provisional-chip {
+  color: #4a4d57;
+  background: rgba(20, 21, 29, 0.06);
+  border: 1px solid rgba(20, 21, 29, 0.1);
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-chip {
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.showcase-provisional-chip-sep {
+  opacity: 0.5;
+}
+
+.showcase-provisional-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-2);
+}
+
+.showcase-provisional-logo-wrap {
+  width: 120px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.showcase-provisional-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.showcase-provisional-slide--light .showcase-provisional-logo {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.1));
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-logo {
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, 0.45));
+}
+
+.showcase-provisional-badge-ring {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-1) 0;
+}
+
+.showcase-provisional-slide--light .showcase-provisional-badge-ring {
+  background: rgba(var(--color-brand-primary-rgb), 0.1);
+  border: 1.5px solid rgba(var(--color-brand-primary-rgb), 0.38);
+  box-shadow: 0 8px 20px -4px rgba(var(--color-brand-primary-rgb), 0.22);
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-badge-ring {
+  background: rgba(var(--color-brand-primary-rgb), 0.14);
+  border: 1.5px solid rgba(var(--color-brand-primary-rgb), 0.48);
+  box-shadow:
+    0 0 28px -4px rgba(var(--color-brand-primary-rgb), 0.35),
+    inset 0 1px 2px rgba(255, 255, 255, 0.15);
+}
+
+.showcase-provisional-number {
+  font-family: var(--font-mono);
+  font-size: 1.325rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.02em;
+}
+
+.showcase-provisional-slide--light .showcase-provisional-number {
+  color: #16171d;
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-number {
+  color: var(--color-text-primary);
+}
+
+.showcase-provisional-screen-name {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+}
+
+.showcase-provisional-screen-sub {
+  font-size: 0.76rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.showcase-provisional-slide--light .showcase-provisional-screen-sub {
+  color: #525560;
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-screen-sub {
+  color: var(--color-text-secondary);
+}
+
+.showcase-provisional-footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.showcase-provisional-skeleton-bar {
+  width: 78%;
+  height: 26px;
+  border-radius: var(--radius-pill);
+}
+
+.showcase-provisional-slide--light .showcase-provisional-skeleton-bar {
+  background: rgba(20, 21, 29, 0.05);
+  border: 1px solid rgba(20, 21, 29, 0.08);
+}
+
+.showcase-provisional-slide--dark .showcase-provisional-skeleton-bar {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.showcase-provisional-slide--light .showcase-provisional-home-bar {
+  background-color: rgba(20, 21, 29, 0.28);
+}
+
+/* --------------------------------------------------------------------------
+   2. SELECTOR COMPACTO LIGHT/DARK PARA CAPTURAS (ScreenshotThemeToggle)
+   -------------------------------------------------------------------------- */
+
+.screenshot-theme-toggle-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+}
+
+.screenshot-theme-toggle {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: rgba(24, 25, 30, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-sm);
+  user-select: none;
+}
+
+/* Píldora deslizante neutra con detalle sutil */
+.screenshot-theme-thumb {
+  position: absolute;
+  top: 3px;
+  bottom: 3px;
+  left: 3px;
+  width: calc(50% - 3px);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+  transition: transform 240ms var(--ease-out-smooth);
+  pointer-events: none;
+}
+
+.screenshot-theme-toggle--dark .screenshot-theme-thumb {
+  transform: translateX(100%);
+}
+
+.screenshot-theme-option {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0.32rem 0.85rem;
+  min-width: 78px;
+  border-radius: var(--radius-pill);
+  font-size: 0.75rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.01em;
+  color: var(--color-text-muted);
+  transition: color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.screenshot-theme-option:hover {
+  color: var(--color-text-secondary);
+}
+
+.screenshot-theme-option--active {
+  color: var(--color-text-primary);
+}
+
+.screenshot-theme-icon {
+  transition: color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.screenshot-theme-option--active .screenshot-theme-icon {
+  color: var(--color-brand-primary);
+}
+
+/* --------------------------------------------------------------------------
+   3. COLUMNA DERECHA — INFORMACIÓN EDITORIAL Y NAVEGACIÓN
+   -------------------------------------------------------------------------- */
+
+.showcase-info-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.125rem, 2.2vh, 1.75rem);
+  max-width: 580px;
+}
+
+.showcase-meta-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.showcase-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.375rem 0.9375rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: rgba(26, 27, 31, 0.78);
+  border: 1px solid var(--color-border-medium);
+}
+
+.showcase-eyebrow-icon {
+  color: var(--color-brand-primary);
+}
+
+.showcase-counter {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  user-select: none;
+}
+
+.showcase-counter-active {
+  display: inline-block;
+  font-size: clamp(1.375rem, 2vw, 1.75rem);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-primary);
+}
+
+.showcase-counter-sep {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.showcase-counter-total {
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-muted);
+}
+
+/* Bloque de texto animado con altura estable para evitar saltos de layout */
+.showcase-text-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  width: 100%;
+  min-height: 220px;
+}
+
+.showcase-title {
+  font-size: clamp(2.15rem, 4vw, 3.5rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--color-text-primary);
+  will-change: transform, opacity;
+}
+
+.showcase-description {
+  font-size: clamp(1.025rem, 1.25vw, 1.1875rem);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 52ch;
+  will-change: transform, opacity;
+}
+
+/* Etiquetas o características destacadas */
+.showcase-tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  list-style: none;
+  padding-top: var(--space-1);
+}
+
+.showcase-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  background: rgba(26, 27, 31, 0.85);
+  border: 1px solid var(--color-border-subtle);
+  will-change: transform, opacity;
+}
+
+.showcase-tag-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-brand-primary);
+  box-shadow: 0 0 8px rgba(var(--color-brand-primary-rgb), 0.7);
+}
+
+/* --------------------------------------------------------------------------
+   4. CONTROLES DE NAVEGACIÓN DEL CARRUSEL (FLECHAS + 7 INDICADORES)
+   -------------------------------------------------------------------------- */
+
+.showcase-controls-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border-subtle);
+  width: 100%;
+}
+
+.showcase-arrows-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.showcase-arrow-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-medium);
+  color: var(--color-text-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    transform var(--duration-fast) var(--ease-out-smooth),
+    box-shadow var(--duration-fast) var(--ease-out-smooth);
+}
+
+.showcase-arrow-btn:hover {
+  background: var(--color-surface-elevated);
+  border-color: var(--color-border-primary);
+  box-shadow: var(--glow-pink-subtle);
+  transform: translateY(-1px);
+}
+
+.showcase-arrow-btn:active {
+  transform: translateY(0);
+}
+
+/* Siete puntos / indicadores interactivos */
+.showcase-indicators {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.showcase-indicator-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.15rem;
+  cursor: pointer;
+}
+
+.showcase-indicator-fill {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(246, 245, 243, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    width var(--duration-normal) var(--ease-out-smooth),
+    background-color var(--duration-normal) var(--ease-out-smooth),
+    box-shadow var(--duration-normal) var(--ease-out-smooth),
+    border-color var(--duration-normal) var(--ease-out-smooth);
+}
+
+.showcase-indicator-dot:hover .showcase-indicator-fill {
+  background-color: rgba(246, 245, 243, 0.38);
+}
+
+.showcase-indicator-dot--active .showcase-indicator-fill {
+  width: 30px;
+  background-color: var(--color-brand-primary);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 0 14px rgba(var(--color-brand-primary-rgb), 0.65);
+}
+
+/* Indicador inferior reutilizado ("Continuar a tecnologías") */
+@keyframes showcaseScrollPulse {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(4px);
+  }
+}
+
+.showcase-scroll-indicator-wrap .hero-scroll-arrow-icon {
+  animation: showcaseScrollPulse 2.4s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   5. SECCIÓN PROVISIONAL DE TECNOLOGÍAS (DESTINO DE NAVEGACIÓN)
+   -------------------------------------------------------------------------- */
+
+.provisional-tech-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: calc(82px + var(--space-8)) var(--space-6) var(--space-16);
+  border-top: 1px solid var(--color-border-subtle);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(var(--color-brand-primary-rgb), 0.08) 0%,
+      transparent 55%
+    ),
+    var(--color-bg-main);
+}
+
+.provisional-tech-container {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-4);
+}
+
+.provisional-tech-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.12);
+  border: 1px solid var(--color-border-primary-subtle);
+}
+
+.provisional-tech-title {
+  font-size: var(--text-h2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.provisional-tech-description {
+  font-size: var(--text-body-large);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 50ch;
+}
+
+/* --------------------------------------------------------------------------
+   6. BOTÓN FLOTANTE DISCRETO — VOLVER A LA SECCIÓN ANTERIOR (PreviousSectionButton)
+   -------------------------------------------------------------------------- */
+
+.previous-section-btn {
+  position: fixed;
+  right: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 35;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 27, 31, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-medium);
+  color: var(--color-text-secondary);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition:
+    opacity var(--duration-normal) var(--ease-out-smooth),
+    visibility var(--duration-normal) var(--ease-out-smooth),
+    transform var(--duration-normal) var(--ease-out-smooth),
+    color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.previous-section-btn--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.previous-section-btn:hover {
+  color: var(--color-text-primary);
+  background: rgba(41, 42, 46, 0.88);
+  border-color: var(--color-border-hover);
+  transform: translateY(-2px);
+}
+
+.previous-section-btn:active {
+  transform: translateY(0);
+}
+
+/* --------------------------------------------------------------------------
+   7. DISEÑO RESPONSIVO (1920x1080, 1366x768, TABLET Y MÓVIL)
+   -------------------------------------------------------------------------- */
+
+/* Optimización para laptops de altura compacta (ej. 1366 x 768) */
+@media (min-width: 1025px) and (max-height: 820px) {
+  .showcase-section {
+    padding-top: calc(64px + var(--space-2));
+    padding-bottom: var(--space-3);
+  }
+
+  .showcase-phone-mockup .phone-chassis {
+    width: clamp(206px, 17.8vw, 242px);
+  }
+
+  .showcase-text-stage {
+    min-height: 185px;
+    gap: var(--space-3);
+  }
+
+  .showcase-title {
+    font-size: clamp(1.95rem, 3.2vw, 2.75rem);
+  }
+
+  .showcase-description {
+    font-size: 0.985rem;
+  }
+}
+
+/* Tablet y pantallas medianas */
+@media (max-width: 1024px) {
+  .showcase-section {
+    padding: calc(82px + var(--space-4)) 0 var(--space-6);
+    gap: var(--space-6);
+  }
+
+  .showcase-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    text-align: center;
+  }
+
+  .showcase-info-column {
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .showcase-meta-row {
+    justify-content: center;
+    gap: var(--space-6);
+  }
+
+  .showcase-text-stage {
+    align-items: center;
+    min-height: 195px;
+  }
+
+  .showcase-tags-list {
+    justify-content: center;
+  }
+
+  .showcase-controls-bar {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .showcase-phone-mockup .phone-chassis {
+    width: 248px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .showcase-section {
+    padding: calc(72px + var(--space-3)) 0 var(--space-6);
+  }
+
+  .showcase-container {
+    padding: 0 var(--space-4);
+    gap: var(--space-6);
+  }
+
+  .showcase-phone-mockup .phone-chassis {
+    width: 220px;
+  }
+
+  .showcase-title {
+    font-size: clamp(1.85rem, 7.5vw, 2.4rem);
+  }
+
+  .showcase-text-stage {
+    min-height: 210px;
+    gap: var(--space-3);
+  }
+
+  .showcase-controls-bar {
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .previous-section-btn {
+    right: var(--space-4);
+    bottom: var(--space-4);
+    width: 40px;
+    height: 40px;
+  }
+}

@@ -1,21 +1,8 @@
 import { useState } from 'react'
 import { Menu, X } from 'lucide-react'
+import { SHOWCASE_SECTIONS } from '../../data/sectionsConfig'
 import logoWebp from '../../assets/problemas-jalisco-letras-webp.webp'
 import logoPng from '../../assets/problemas-jalisco-letras-png.png'
-
-interface NavItem {
-  id: string
-  label: string
-  href?: string
-  isUpcoming?: boolean
-}
-
-const NAV_ITEMS: NavItem[] = [
-  { id: 'inicio', label: 'Inicio', href: '#inicio' },
-  { id: 'funcionalidades', label: 'Funcionalidades', href: '#funcionalidades' },
-  { id: 'tecnologias', label: 'Tecnologías', isUpcoming: true },
-  { id: 'descargar', label: 'Descargar', isUpcoming: true },
-]
 
 interface SiteHeaderProps {
   onNavigate?: (targetId: string) => void
@@ -26,12 +13,12 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
 
   const handleLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string,
+    targetId: string,
   ) => {
     setMobileMenuOpen(false)
-    if (onNavigate && href.startsWith('#')) {
+    if (onNavigate) {
       e.preventDefault()
-      onNavigate(href.slice(1))
+      onNavigate(targetId)
     }
   }
 
@@ -42,7 +29,7 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
           href="#inicio"
           className="site-brand-link"
           aria-label="Problemas Jalisco — Ir al inicio"
-          onClick={(e) => handleLinkClick(e, '#inicio')}
+          onClick={(e) => handleLinkClick(e, 'inicio')}
         >
           <span className="site-brand-logo-frame">
             <picture className="site-brand-picture">
@@ -62,13 +49,13 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
         {/* Navegación de escritorio */}
         <nav className="site-nav-desktop" aria-label="Navegación principal">
           <ul className="site-nav-list">
-            {NAV_ITEMS.map((item) => (
+            {SHOWCASE_SECTIONS.map((item) => (
               <li key={item.id} className="site-nav-item">
-                {item.href && !item.isUpcoming ? (
+                {item.isImplemented ? (
                   <a
-                    href={item.href}
+                    href={`#${item.id}`}
                     className="site-nav-link"
-                    onClick={(e) => handleLinkClick(e, item.href!)}
+                    onClick={(e) => handleLinkClick(e, item.id)}
                   >
                     {item.label}
                   </a>
@@ -112,13 +99,13 @@ export function SiteHeader({ onNavigate }: SiteHeaderProps) {
           aria-label="Navegación móvil"
         >
           <ul className="site-nav-mobile-list">
-            {NAV_ITEMS.map((item) => (
+            {SHOWCASE_SECTIONS.map((item) => (
               <li key={item.id} className="site-nav-mobile-item">
-                {item.href && !item.isUpcoming ? (
+                {item.isImplemented ? (
                   <a
-                    href={item.href}
+                    href={`#${item.id}`}
                     className="site-nav-mobile-link"
-                    onClick={(e) => handleLinkClick(e, item.href!)}
+                    onClick={(e) => handleLinkClick(e, item.id)}
                   >
                     <span>{item.label}</span>
                   </a>

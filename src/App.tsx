@@ -1,5 +1,7 @@
-import { ArrowUp, Layers } from 'lucide-react'
+import { Cpu } from 'lucide-react'
 import { HeroSection } from './components/hero/HeroSection'
+import { FeaturesShowcaseSection } from './components/showcase/FeaturesShowcaseSection'
+import { PreviousSectionButton } from './components/layout/PreviousSectionButton'
 
 function App() {
   const scrollToSection = (targetId: string) => {
@@ -18,46 +20,38 @@ function App() {
 
   return (
     <div className="showcase-app">
-      {/* 1. SECCIÓN PRINCIPAL: HERO CINEMATOGRÁFICO DEFINITIVO (FASE 1.4) */}
+      {/* 1. SECCIÓN PRINCIPAL: HERO CINEMATOGRÁFICO (FASE 1.4) */}
       <HeroSection onNavigateToSection={scrollToSection} />
 
-      {/* 2. SECCIÓN PROVISIONAL DE FUNCIONALIDADES (DESTINO DE NAVEGACIÓN SUAVE) */}
+      {/* 2. CARRUSEL CINEMATOGRÁFICO DE FUNCIONALIDADES (FASE 1.5 / 1.5.1) */}
+      <FeaturesShowcaseSection onNavigateToSection={scrollToSection} />
+
+      {/* 3. SECCIÓN PROVISIONAL DE TECNOLOGÍAS (DESTINO DE NAVEGACIÓN) */}
       <section
-        id="funcionalidades"
-        className="provisional-features-section"
-        aria-labelledby="provisional-features-heading"
+        id="tecnologias"
+        className="provisional-tech-section"
+        aria-labelledby="provisional-tech-heading"
       >
-        <div className="provisional-features-container">
-          <div className="provisional-features-card">
-            <div className="provisional-features-badge">
-              <Layers size={14} aria-hidden="true" />
-              <span>SECCIÓN EN PREPARACIÓN · PRÓXIMA FASE</span>
-            </div>
-
-            <h2
-              id="provisional-features-heading"
-              className="provisional-features-title"
-            >
-              Showcase interactivo de funcionalidades
-            </h2>
-
-            <p className="provisional-features-description">
-              Este espacio alojará el recorrido visual por las pantallas y
-              capacidades clave de Problemas Jalisco en la siguiente etapa
-              de desarrollo.
-            </p>
-
-            <button
-              type="button"
-              className="btn-secondary provisional-back-btn"
-              onClick={() => scrollToSection('inicio')}
-            >
-              <ArrowUp size={16} aria-hidden="true" />
-              <span>Volver al inicio</span>
-            </button>
+        <div className="provisional-tech-container">
+          <div className="provisional-tech-badge">
+            <Cpu size={14} aria-hidden="true" />
+            <span>ARQUITECTURA Y STACK · PRÓXIMA FASE</span>
           </div>
+
+          <h2 id="provisional-tech-heading" className="provisional-tech-title">
+            Tecnologías que impulsan Problemas Jalisco
+          </h2>
+
+          <p className="provisional-tech-description">
+            Sección provisional preparada como destino de navegación. Aquí se
+            presentará la infraestructura técnica del proyecto en la siguiente
+            fase.
+          </p>
         </div>
       </section>
+
+      {/* CONTROL DISCRETO FLOTANTE: REGRESO A LA SECCIÓN ANTERIOR */}
+      <PreviousSectionButton onNavigateToSection={scrollToSection} />
     </div>
   )
 }
