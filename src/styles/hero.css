@@ -1,0 +1,1068 @@
+/* ==========================================================================
+   HERO CINEMATOGRÁFICO DEFINITIVO (FASE 1.4)
+   ========================================================================== */
+
+.hero-root-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   1. ENCABEZADO SUPERIOR FLOTANTE (SiteHeader)
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: fixed;
+  top: var(--space-4);
+  left: 0;
+  right: 0;
+  z-index: 40;
+  width: calc(100% - var(--space-8));
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  background: rgba(20, 21, 25, 0.72);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.65);
+  transition:
+    border-color var(--duration-normal) var(--ease-out-smooth),
+    background-color var(--duration-normal) var(--ease-out-smooth);
+}
+
+.site-header:hover {
+  border-color: var(--color-border-medium);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: 0.45rem 1.375rem;
+  min-height: 62px;
+}
+
+/* Logotipo real de Problemas Jalisco (visualización completa con proporción original) */
+.site-brand-link {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  padding: 0.125rem 0;
+  border-radius: var(--radius-sm);
+}
+
+.site-brand-logo-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 46px;
+}
+
+.site-brand-picture {
+  display: inline-flex;
+  align-items: center;
+  height: 100%;
+}
+
+.site-brand-logo {
+  width: auto;
+  height: 100%;
+  max-height: 46px;
+  object-fit: contain;
+  object-position: left center;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
+}
+
+/* Navegación de escritorio */
+.site-nav-desktop {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  list-style: none;
+}
+
+.site-nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.site-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.875rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition:
+    color var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+a.site-nav-link:hover {
+  color: var(--color-text-primary);
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.site-nav-link--disabled {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+  opacity: 0.78;
+}
+
+.site-nav-link--cta-disabled {
+  margin-left: var(--space-1);
+  border: 1px solid var(--color-border-subtle);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.site-nav-soon-tag {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.1rem 0.375rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary);
+}
+
+/* Botón y panel de navegación móvil */
+.site-mobile-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-pill);
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.site-nav-mobile {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   2. ESCENARIO PRINCIPAL DEL HERO (HeroSection)
+   -------------------------------------------------------------------------- */
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-top: calc(76px + var(--space-6));
+  padding-bottom: var(--space-5);
+}
+
+.hero-ambient-stage-glow {
+  position: absolute;
+  top: 14%;
+  right: 4%;
+  width: min(540px, 48vw);
+  height: min(540px, 65vh);
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.16) 0%,
+    rgba(var(--color-brand-primary-rgb), 0.05) 45%,
+    transparent 72%
+  );
+  filter: blur(55px);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: auto;
+  padding: var(--space-4) var(--space-6);
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+}
+
+/* --------------------------------------------------------------------------
+   3. COLUMNA IZQUIERDA: NARRATIVA EDITORIAL Y BOTONES
+   -------------------------------------------------------------------------- */
+
+.hero-editorial-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.125rem, 2.2vh, 1.625rem);
+  max-width: 610px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.375rem 0.9375rem;
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: rgba(26, 27, 31, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-title {
+  font-size: clamp(2.35rem, 4.6vw, 4.05rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--color-text-primary);
+}
+
+.hero-title-line {
+  display: block;
+}
+
+.hero-title-accent {
+  color: var(--color-brand-primary);
+  text-shadow: 0 0 38px rgba(var(--color-brand-primary-rgb), 0.36);
+}
+
+.hero-description {
+  font-size: clamp(1.05rem, 1.3vw, 1.225rem);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 52ch;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  padding-top: var(--space-2);
+}
+
+.hero-btn-primary,
+.hero-btn-secondary {
+  min-height: 48px;
+}
+
+/* --------------------------------------------------------------------------
+   4. COLUMNA DERECHA: COMPOSICIÓN PROTAGONISTA (TELÉFONO 3D + SÍMBOLO)
+   -------------------------------------------------------------------------- */
+
+.hero-visual-column {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.hero-visual-stage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 460px;
+  padding: var(--space-2) var(--space-4);
+}
+
+.hero-device-pink-aura {
+  position: absolute;
+  inset: 8% 10%;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(
+    circle at 50% 48%,
+    rgba(var(--color-brand-primary-rgb), 0.34) 0%,
+    rgba(var(--color-brand-primary-rgb), 0.1) 48%,
+    transparent 74%
+  );
+  filter: blur(42px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* --------------------------------------------------------------------------
+   5. MOCKUP DEL TELÉFONO EN CSS PURO (PhoneMockup)
+   -------------------------------------------------------------------------- */
+
+.phone-mockup-perspective {
+  position: relative;
+  z-index: 2;
+  perspective: 1300px;
+  transform-style: preserve-3d;
+}
+
+.phone-mockup-float-wrapper {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.phone-mockup-perspective--tilted .phone-chassis {
+  transform: rotateY(-13deg) rotateX(6deg) rotateZ(-1.8deg);
+  box-shadow:
+    22px 28px 55px -10px rgba(0, 0, 0, 0.82),
+    8px 10px 24px -4px rgba(0, 0, 0, 0.65),
+    0 0 48px -8px rgba(var(--color-brand-primary-rgb), 0.32),
+    inset -2px 1px 3px rgba(255, 255, 255, 0.22);
+}
+
+.phone-chassis-Backglow {
+  position: absolute;
+  inset: 10%;
+  background: rgba(var(--color-brand-primary-rgb), 0.22);
+  filter: blur(32px);
+  border-radius: 48px;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Chasis exterior con proporción moderna ~9:19.5 */
+.phone-chassis {
+  position: relative;
+  width: clamp(236px, 21vw, 282px);
+  aspect-ratio: 9 / 19.5;
+  border-radius: 44px;
+  padding: 9px;
+  background: linear-gradient(
+    145deg,
+    #383a42 0%,
+    #1e2026 38%,
+    #141519 72%,
+    #2d2e36 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow:
+    0 24px 50px rgba(0, 0, 0, 0.78),
+    0 0 40px -6px rgba(var(--color-brand-primary-rgb), 0.25);
+  transition: transform var(--duration-slow) var(--ease-out-smooth);
+}
+
+/* Botones físicos laterales */
+.phone-side-btn {
+  position: absolute;
+  background: linear-gradient(180deg, #3b3d46, #1d1e24);
+  border-radius: 3px;
+}
+
+.phone-side-btn--silent {
+  left: -3px;
+  top: 18%;
+  width: 3px;
+  height: 18px;
+}
+
+.phone-side-btn--vol-up {
+  left: -3px;
+  top: 25%;
+  width: 3px;
+  height: 34px;
+}
+
+.phone-side-btn--vol-down {
+  left: -3px;
+  top: 34%;
+  width: 3px;
+  height: 34px;
+}
+
+.phone-side-btn--power {
+  right: -3px;
+  top: 28%;
+  width: 3px;
+  height: 48px;
+}
+
+/* Bisel oscuro interior */
+.phone-bezel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 36px;
+  background-color: #08090b;
+  padding: 4px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Isla superior / altavoz y lente */
+.phone-dynamic-island {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 76px;
+  height: 20px;
+  background-color: #050507;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 9px;
+}
+
+.phone-speaker-slot {
+  width: 26px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background-color: #17181d;
+}
+
+.phone-camera-lens {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(circle at 35% 35%, #2b4c6f 0%, #090d16 70%);
+  box-shadow: inset 0 0 2px rgba(255, 255, 255, 0.25);
+}
+
+/* Pantalla interna independiente (overflow: hidden obligatorio) */
+.phone-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  background-color: var(--color-bg-main);
+  display: flex;
+  flex-direction: column;
+}
+
+.phone-screen-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Contenido provisional de la pantalla */
+.phone-provisional-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 44px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 18%,
+      rgba(var(--color-brand-primary-rgb), 0.22) 0%,
+      rgba(var(--color-brand-primary-rgb), 0.04) 48%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, #15161b 0%, #0d0e11 100%);
+}
+
+.phone-provisional-top-glow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 160px;
+  height: 90px;
+  background: rgba(var(--color-brand-primary-rgb), 0.25);
+  filter: blur(28px);
+  pointer-events: none;
+}
+
+.phone-provisional-status {
+  position: relative;
+  z-index: 1;
+}
+
+.phone-provisional-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.phone-provisional-center {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.phone-provisional-logo-box {
+  width: 148px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phone-provisional-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.5));
+}
+
+.phone-provisional-divider {
+  width: 48px;
+  height: 2px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-brand-primary),
+    transparent
+  );
+}
+
+.phone-provisional-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  background: rgba(26, 27, 31, 0.72);
+  border: 1px dashed var(--color-border-medium);
+}
+
+.phone-provisional-icon-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.14);
+  border: 1px solid var(--color-border-primary-subtle);
+  margin-bottom: 2px;
+}
+
+.phone-provisional-title {
+  font-size: 0.78rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.phone-provisional-caption {
+  font-size: 0.6875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.phone-provisional-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: var(--space-2);
+}
+
+.phone-home-bar {
+  width: 84px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background-color: rgba(255, 255, 255, 0.28);
+}
+
+/* Reflejo diagonal sutil de cristal */
+.phone-screen-glare {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    125deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.015) 32%,
+    transparent 48%
+  );
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* --------------------------------------------------------------------------
+   6. ELEMENTO TEMPORAL DE MASCOTA / SÍMBOLO PROTAGONISTA (HeroMascotPlaceholder)
+   -------------------------------------------------------------------------- */
+
+.hero-mascot-placeholder {
+  position: relative;
+  width: 128px;
+  height: 128px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  user-select: none;
+}
+
+.hero-mascot-positioned {
+  position: absolute;
+  bottom: 8%;
+  left: 2%;
+}
+
+.mascot-ambient-halo {
+  position: absolute;
+  inset: -16px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.42) 0%,
+    rgba(var(--color-brand-primary-rgb), 0.12) 52%,
+    transparent 74%
+  );
+  filter: blur(16px);
+  pointer-events: none;
+}
+
+.mascot-orbit-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: var(--radius-pill);
+  border: 1px dashed rgba(var(--color-brand-primary-rgb), 0.45);
+  pointer-events: none;
+}
+
+.mascot-satellite {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-pill);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(26, 27, 31, 0.92);
+  border: 1px solid var(--color-border-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.mascot-satellite--top {
+  top: -8px;
+  right: 8px;
+  color: var(--color-brand-primary);
+}
+
+.mascot-satellite--bottom {
+  bottom: -6px;
+  left: 6px;
+  color: var(--color-brand-secondary);
+  border-color: rgba(var(--color-brand-secondary-rgb), 0.45);
+}
+
+.mascot-emblem-core {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    145deg,
+    rgba(41, 42, 46, 0.88) 0%,
+    rgba(20, 21, 25, 0.94) 100%
+  );
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1.5px solid rgba(var(--color-brand-primary-rgb), 0.55);
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.68),
+    0 0 30px -4px rgba(var(--color-brand-primary-rgb), 0.38),
+    inset 0 1px 2px rgba(255, 255, 255, 0.18);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.mascot-emblem-inner-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    rgba(var(--color-brand-primary-rgb), 0.28) 0%,
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.mascot-emblem-icon {
+  position: relative;
+  z-index: 1;
+  color: var(--color-text-primary);
+  filter: drop-shadow(0 0 12px rgba(var(--color-brand-primary-rgb), 0.65));
+}
+
+.mascot-emblem-tag {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   7. INDICADOR ANIMADO DE SCROLL (ScrollIndicator)
+   -------------------------------------------------------------------------- */
+
+.hero-scroll-indicator-wrap {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: var(--space-2);
+}
+
+.hero-scroll-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-pill);
+  background: rgba(26, 27, 31, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  transition:
+    color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth),
+    transform var(--duration-fast) var(--ease-out-smooth);
+}
+
+.hero-scroll-indicator:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-primary);
+  background: rgba(34, 35, 40, 0.85);
+  transform: translateY(-2px);
+}
+
+.hero-scroll-arrow-box {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  background: rgba(var(--color-brand-primary-rgb), 0.16);
+  border: 1px solid var(--color-border-primary-subtle);
+  color: var(--color-brand-primary);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   8. SECCIÓN PROVISIONAL DE FUNCIONALIDADES (DESTINO DE SCROLL)
+   -------------------------------------------------------------------------- */
+
+.provisional-features-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20) var(--space-6);
+  border-top: 1px solid var(--color-border-subtle);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(var(--color-brand-primary-rgb), 0.08) 0%,
+      transparent 55%
+    ),
+    var(--color-bg-main);
+}
+
+.provisional-features-container {
+  width: 100%;
+  max-width: var(--container-narrow);
+  margin: 0 auto;
+}
+
+.provisional-features-card {
+  padding: clamp(2rem, 4vw, 3.25rem);
+  border-radius: var(--radius-xl);
+  background: rgba(26, 27, 31, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border-medium);
+  box-shadow: var(--shadow-elevated);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-5);
+}
+
+.provisional-features-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.35rem 0.875rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.12);
+  border: 1px solid var(--color-border-primary-subtle);
+}
+
+.provisional-features-title {
+  font-size: var(--text-h2);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+.provisional-features-description {
+  font-size: var(--text-body-large);
+  color: var(--color-text-secondary);
+  line-height: var(--leading-relaxed);
+  max-width: 50ch;
+}
+
+.provisional-back-btn {
+  margin-top: var(--space-2);
+}
+
+/* --------------------------------------------------------------------------
+   9. DISEÑO RESPONSIVO (1920x1080, 1366x768, TABLET Y MÓVIL)
+   -------------------------------------------------------------------------- */
+
+/* Optimización para laptops de altura compacta (ej. 1366 x 768) */
+@media (min-width: 1025px) and (max-height: 820px) {
+  .site-header {
+    top: var(--space-3);
+  }
+
+  .site-header-inner {
+    min-height: 54px;
+    padding: 0.35rem 1.25rem;
+  }
+
+  .site-brand-logo-frame {
+    height: 42px;
+  }
+
+  .site-brand-logo {
+    max-height: 42px;
+  }
+
+  .hero-section {
+    padding-top: calc(64px + var(--space-3));
+    padding-bottom: var(--space-3);
+  }
+
+  .hero-title {
+    font-size: clamp(2.15rem, 3.8vw, 3.25rem);
+  }
+
+  .hero-description {
+    font-size: 1.025rem;
+  }
+
+  .phone-chassis {
+    width: clamp(210px, 18.5vw, 244px);
+  }
+
+  .hero-mascot-placeholder {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+/* Tablet y pantallas medianas (reorganización vertical limpia) */
+@media (max-width: 1024px) {
+  .hero-section {
+    padding-top: calc(82px + var(--space-6));
+    padding-bottom: var(--space-6);
+    gap: var(--space-6);
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    text-align: center;
+  }
+
+  .hero-editorial-column {
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-visual-stage {
+    max-width: 380px;
+  }
+
+  .phone-chassis {
+    width: 248px;
+  }
+
+  .hero-mascot-positioned {
+    bottom: 6%;
+    left: 4%;
+  }
+}
+
+/* Móvil (menú desplegable y proporciones compactas sin desbordamiento) */
+@media (max-width: 768px) {
+  .site-header {
+    top: var(--space-3);
+    width: calc(100% - var(--space-6));
+    border-radius: var(--radius-xl);
+  }
+
+  .site-header-inner {
+    min-height: 56px;
+    padding: 0.4rem 1rem;
+    gap: var(--space-3);
+  }
+
+  .site-brand-logo-frame {
+    height: 40px;
+  }
+
+  .site-brand-logo {
+    max-height: 40px;
+  }
+
+  .site-nav-desktop {
+    display: none;
+  }
+
+  .site-mobile-toggle {
+    display: inline-flex;
+  }
+
+  .site-nav-mobile {
+    display: block;
+    padding: var(--space-2) var(--space-4) var(--space-4);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .site-nav-mobile-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    list-style: none;
+  }
+
+  .site-nav-mobile-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0.875rem;
+    border-radius: var(--radius-md);
+    font-size: var(--text-body);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+  }
+
+  a.site-nav-mobile-link:hover {
+    color: var(--color-text-primary);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .site-nav-mobile-link--disabled {
+    color: var(--color-text-muted);
+    cursor: not-allowed;
+  }
+
+  .hero-container {
+    padding: var(--space-2) var(--space-4);
+    gap: var(--space-8);
+  }
+
+  .hero-title {
+    font-size: clamp(2rem, 8vw, 2.75rem);
+  }
+
+  .hero-actions {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-btn-primary,
+  .hero-btn-secondary {
+    width: 100%;
+  }
+
+  .hero-visual-stage {
+    max-width: 310px;
+    padding: var(--space-2) 0;
+  }
+
+  .phone-chassis {
+    width: 222px;
+  }
+
+  .phone-mockup-perspective--tilted .phone-chassis {
+    transform: rotateY(-9deg) rotateX(4deg) rotateZ(-1deg);
+  }
+
+  .hero-mascot-placeholder {
+    width: 98px;
+    height: 98px;
+  }
+
+  .hero-mascot-positioned {
+    left: 0;
+    bottom: 4%;
+  }
+
+  .mascot-emblem-icon {
+    width: 34px;
+    height: 34px;
+  }
+}
+

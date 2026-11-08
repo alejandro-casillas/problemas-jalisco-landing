@@ -25,6 +25,18 @@ function getReducedMotionSnapshot() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
+function hasCanvas2DSupport() {
+  if (typeof document === 'undefined') return true
+  try {
+    const testCanvas = document.createElement('canvas')
+    return Boolean(testCanvas.getContext && testCanvas.getContext('2d'))
+  } catch {
+    return false
+  }
+}
+
+const canvasSupported = hasCanvas2DSupport()
+
 export function BackgroundStage({
   activeBackground,
   className = '',
@@ -35,10 +47,10 @@ export function BackgroundStage({
     () => false,
   )
 
-  // Si el usuario tiene activo 'prefers-reduced-motion' y seleccionó un fondo animado,
-  // se fuerza el renderizado del fondo estático por accesibilidad
+  // Si el usuario tiene activo 'prefers-reduced-motion' o el navegador carece de soporte gráfico Canvas 2D,
+  // se fuerza el renderizado de la alternativa estática CSS por accesibilidad y resiliencia
   const effectiveBackground: BackgroundType =
-    prefersReducedMotion && activeBackground !== 'static-gradient'
+    (prefersReducedMotion || !canvasSupported) && activeBackground !== 'static-gradient'
       ? 'static-gradient'
       : activeBackground
 

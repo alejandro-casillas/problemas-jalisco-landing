@@ -11,18 +11,18 @@ interface ThreadsBackgroundProps {
 
 export function ThreadsBackground({
   color = '#E00B50',
-  strandCount = 38,
-  amplitude = 1.1,
-  speed = 0.65,
+  strandCount = 42,
+  amplitude = 1.05,
+  speed = 0.55,
   enableMouseInteraction = true,
   className = '',
 }: ThreadsBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null)
   const mouseRef = useRef({
-    x: 0,
-    y: 0,
-    targetX: 0,
-    targetY: 0,
+    x: 0.68,
+    y: 0.5,
+    targetX: 0.68,
+    targetY: 0.5,
     active: false,
   })
 
@@ -53,11 +53,18 @@ export function ThreadsBackground({
     resize()
 
     const handleMouseMove = (e: MouseEvent) => {
-      if (!enableMouseInteraction) return
+      if (!enableMouseInteraction || width <= 0 || height <= 0) return
       const rect = canvas.getBoundingClientRect()
-      mouseRef.current.targetX = (e.clientX - rect.left) / width
-      mouseRef.current.targetY = (e.clientY - rect.top) / height
-      mouseRef.current.active = true
+      const relX = (e.clientX - rect.left) / width
+      const relY = (e.clientY - rect.top) / height
+
+      if (relX >= 0 && relX <= 1 && relY >= 0 && relY <= 1) {
+        mouseRef.current.targetX = relX
+        mouseRef.current.targetY = relY
+        mouseRef.current.active = true
+      } else {
+        mouseRef.current.active = false
+      }
     }
 
     const handleMouseLeave = () => {
@@ -65,7 +72,7 @@ export function ThreadsBackground({
     }
 
     window.addEventListener('resize', resize)
-    window.addEventListener('mousemove', handleMouseMove)
+    window.addEventListener('mousemove', handleMouseMove, { passive: true })
     window.addEventListener('mouseleave', handleMouseLeave)
 
     let time = 0
@@ -74,64 +81,94 @@ export function ThreadsBackground({
       ctx.clearRect(0, 0, width, height)
 
       if (!prefersReducedMotion) {
-        time += 0.008 * speed
+        time += 0.0075 * speed
       }
 
       // Suavizado por interpolación lineal (lerp) para el cursor
       const mouse = mouseRef.current
       if (mouse.active) {
-        mouse.x += (mouse.targetX - mouse.x) * 0.05
-        mouse.y += (mouse.targetY - mouse.y) * 0.05
+        mouse.x += (mouse.targetX - mouse.x) * 0.045
+        mouse.y += (mouse.targetY - mouse.y) * 0.045
       } else {
-        mouse.x += (0.6 - mouse.x) * 0.02
+        mouse.x += (0.68 - mouse.x) * 0.02
         mouse.y += (0.5 - mouse.y) * 0.02
       }
 
-      // Parámetros de composición: las ondas se originan sutiles a la izquierda
-      // y adquieren amplitud y protagonismo hacia la derecha (área de mockup)
+      // Composición cinematográfica del Hero:
+      // - Líneas tenues detrás de la columna editorial izquierda
+      // - Cruce fluido por la zona central con convergencia armónica
+      // - Mayor presencia e iluminación cerca del mockup del teléfono (zona derecha ~62%-82%)
+      // - Desvanecimiento progresivo hacia ambos extremos (0% y 100%)
       const baseCenterY = height * 0.52
-      const mouseInfluenceY = (mouse.y - 0.5) * height * 0.35
-      const mouseInfluenceX = (mouse.x - 0.5) * 1.5
+      const mouseInfluenceY = (mouse.y - 0.5) * height * 0.28
+      const mouseInfluenceX = (mouse.x - 0.5) * 1.2
 
       for (let s = 0; s < strandCount; s++) {
         const progress = s / (strandCount - 1)
         const strandOffset = (progress - 0.5) * 2 // -1 a +1
 
-        // Cálculo de fase y frecuencia armónica para cada hebra
-        const phase = s * 0.065 + time
-        const strandFreq = 0.0018 + progress * 0.0006
+        // Fase y frecuencia armónica por hebra
+        const phase = s * 0.07 + time
+        const strandFreq = 0.0017 + progress * 0.00055
 
-        // Gradiente horizontal específico por hebra para iluminar el lado derecho
+        // Perfil de opacidad horizontal con desvanecimiento en extremos y foco en el teléfono
         const gradient = ctx.createLinearGradient(0, 0, width, 0)
-        const alphaBase = 0.04 + Math.sin(progress * Math.PI) * 0.28
-        gradient.addColorStop(0, `rgba(224, 11, 80, 0.02)`)
-        gradient.addColorStop(0.35, `rgba(224, 11, 80, ${alphaBase * 0.6})`)
-        gradient.addColorStop(0.75, `rgba(224, 11, 80, ${alphaBase * 1.1})`)
-        gradient.addColorStop(1, `rgba(224, 11, 80, ${alphaBase * 0.4})`)
+        const alphaBell = Math.sin(progress * Math.PI)
+        const alphaBase = 0.035 + alphaBell * 0.3
+
+        // Uso sutil de acento secundario en contadas hebras internas respetando el 90%+ rosa institucional
+        const isSecondaryStrand = s % 14 === 7
+        const rgb = isSecondaryStrand ? '88, 195, 227' : '224, 11, 80'
+        const roleScale = isSecondaryStrand ? 0.45 : 1
+
+        gradient.addColorStop(0, `rgba(${rgb}, 0)`)
+        gradient.addColorStop(0.12, `rgba(${rgb}, ${(alphaBase * 0.16 * roleScale).toFixed(4)})`)
+        gradient.addColorStop(0.36, `rgba(${rgb}, ${(alphaBase * 0.34 * roleScale).toFixed(4)})`)
+        gradient.addColorStop(0.54, `rgba(${rgb}, ${(alphaBase * 0.72 * roleScale).toFixed(4)})`)
+        gradient.addColorStop(0.72, `rgba(${rgb}, ${Math.min(0.65, alphaBase * 1.28 * roleScale).toFixed(4)})`)
+        gradient.addColorStop(0.88, `rgba(${rgb}, ${(alphaBase * 0.55 * roleScale).toFixed(4)})`)
+        gradient.addColorStop(1, `rgba(${rgb}, 0)`)
 
         ctx.strokeStyle = gradient
-        ctx.lineWidth = 1.25
+        ctx.lineWidth = isSecondaryStrand ? 1.0 : 1.15 + alphaBell * 0.35
 
         ctx.beginPath()
 
-        const segments = 45
+        const segments = 56
         for (let i = 0; i <= segments; i++) {
           const x = (i / segments) * width
           const xNorm = x / width
 
-          // Amplitud progresiva: muy baja a la izquierda (legibilidad) y mayor a la derecha
-          const amplitudeProfile = Math.pow(xNorm, 1.4) * (height * 0.22) * amplitude
+          // Envolvente que mantiene calma tras el texto, cruza el centro y se expande junto al dispositivo
+          const edgeTaper = Math.sin(xNorm * Math.PI)
+          const rightPresence = 0.35 + 0.65 * Math.pow(xNorm, 1.15)
+          const amplitudeProfile =
+            (height * 0.21) * amplitude * rightPresence * (0.45 + 0.55 * edgeTaper)
+
+          // Nudo de cruce armónico en la zona central (~46% del ancho)
+          const centerCrossing = Math.sin((xNorm - 0.46) * Math.PI * 1.35)
 
           // Ondulación armónica doble con curvatura senoidal
           const wave1 = Math.sin(x * strandFreq + phase)
-          const wave2 = Math.cos(x * strandFreq * 1.6 - phase * 0.8 + strandOffset) * 0.4
+          const wave2 =
+            Math.cos(x * strandFreq * 1.55 - phase * 0.82 + strandOffset * 1.2) * 0.42
           const combinedWave = (wave1 + wave2) * amplitudeProfile
 
-          // Deflexión orgánica hacia la posición del cursor
+          // Deflexión orgánica suave hacia el cursor
           const distToMouseX = Math.abs(xNorm - mouse.x)
-          const mouseDeflection = Math.exp(-distToMouseX * 5.0) * mouseInfluenceY * (0.8 + progress * 0.4)
+          const mouseDeflection =
+            Math.exp(-distToMouseX * 5.2) * mouseInfluenceY * (0.65 + progress * 0.35)
 
-          const y = baseCenterY + strandOffset * (height * 0.12) + combinedWave + mouseDeflection + (xNorm * mouseInfluenceX * 30)
+          // Separación entre hebras que converge al cruzar el centro y envuelve el teléfono a la derecha
+          const spreadFactor =
+            strandOffset * (height * 0.095) * (0.55 + 0.65 * Math.abs(centerCrossing))
+
+          const y =
+            baseCenterY +
+            spreadFactor +
+            combinedWave +
+            mouseDeflection +
+            xNorm * mouseInfluenceX * 22
 
           if (i === 0) {
             ctx.moveTo(x, y)
