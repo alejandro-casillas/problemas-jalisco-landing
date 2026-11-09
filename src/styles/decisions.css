@@ -1,0 +1,990 @@
+/* ==========================================================================
+   SECCIÓN 04: CAMBIOS Y DECISIONES — DISEÑO EDITORIAL Y TECNOLÓGICO (FASE 1.8)
+   ========================================================================== */
+
+.decisions-section {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-top: calc(76px + var(--space-4));
+  padding-bottom: var(--space-5);
+  background-color: var(--color-bg-main);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* Iluminación ambiental suave centrada */
+.decisions-ambient-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(820px, 75vw);
+  height: min(440px, 55vh);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(var(--color-brand-primary-rgb), 0.08) 0%,
+    rgba(var(--color-brand-secondary-rgb), 0.035) 45%,
+    transparent 72%
+  );
+  filter: blur(70px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.decisions-container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: auto;
+  padding: var(--space-2) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(1.25rem, 2.8vh, 2.25rem);
+}
+
+/* --------------------------------------------------------------------------
+   1. ENCABEZADO EDITORIAL
+   -------------------------------------------------------------------------- */
+
+.decisions-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-2);
+  max-width: 720px;
+}
+
+.decisions-eyebrow-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.35rem 0.9375rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  background: rgba(26, 27, 31, 0.78);
+  border: 1px solid var(--color-border-medium);
+}
+
+.decisions-title {
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.12;
+  letter-spacing: var(--tracking-tighter);
+  color: var(--color-text-primary);
+}
+
+.decisions-title-accent {
+  color: var(--color-brand-primary);
+  text-shadow: 0 0 36px rgba(var(--color-brand-primary-rgb), 0.34);
+}
+
+.decisions-subtitle {
+  font-size: clamp(0.975rem, 1.15vw, 1.125rem);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  max-width: 56ch;
+}
+
+/* --------------------------------------------------------------------------
+   2. ESCENARIO Y CUADRÍCULA 2X2 DE TARJETAS
+   -------------------------------------------------------------------------- */
+
+.decisions-stage {
+  width: 100%;
+  position: relative;
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.decisions-grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(1rem, 1.75vw, 1.625rem);
+  width: 100%;
+}
+
+/* Tarjeta individual de decisión */
+.decision-card {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.25rem, 2vw, 1.625rem);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: var(--space-4);
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition:
+    transform var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    box-shadow var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.decision-card:hover {
+  transform: translateY(-2px);
+  background-color: rgba(30, 31, 36, 0.95);
+  box-shadow: var(--shadow-md);
+}
+
+.decision-card:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 3px;
+}
+
+/* Acentos específicos por tarjeta */
+.decision-card--accent-blue:hover {
+  border-color: rgba(var(--color-brand-secondary-rgb), 0.45);
+  box-shadow: 0 8px 24px -6px rgba(var(--color-brand-secondary-rgb), 0.18);
+}
+
+.decision-card--accent-pink:hover {
+  border-color: rgba(var(--color-brand-primary-rgb), 0.5);
+  box-shadow: 0 8px 24px -6px rgba(var(--color-brand-primary-rgb), 0.22);
+}
+
+.decision-card--accent-orange:hover {
+  border-color: rgba(var(--color-brand-tertiary-rgb), 0.48);
+  box-shadow: 0 8px 24px -6px rgba(var(--color-brand-tertiary-rgb), 0.2);
+}
+
+/* Resplandor ambiental interno sutil en la esquina superior */
+.decision-card-ambient-glow {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-pill);
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.04) 0%,
+    transparent 70%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.decision-card--accent-blue .decision-card-ambient-glow {
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-secondary-rgb), 0.12) 0%,
+    transparent 70%
+  );
+}
+
+.decision-card--accent-pink .decision-card-ambient-glow {
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-primary-rgb), 0.14) 0%,
+    transparent 70%
+  );
+}
+
+.decision-card--accent-orange .decision-card-ambient-glow {
+  background: radial-gradient(
+    circle,
+    rgba(var(--color-brand-tertiary-rgb), 0.12) 0%,
+    transparent 70%
+  );
+}
+
+/* Cabecera de tarjeta: Icono y Número */
+.decision-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.decision-card-icon-frame {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--color-border-subtle);
+  transition:
+    transform var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.decision-card:hover .decision-card-icon-frame {
+  transform: scale(1.05);
+}
+
+.decision-card--accent-blue .decision-card-icon-frame {
+  color: var(--color-brand-secondary);
+  background: rgba(var(--color-brand-secondary-rgb), 0.08);
+  border-color: rgba(var(--color-brand-secondary-rgb), 0.25);
+}
+
+.decision-card--accent-pink .decision-card-icon-frame {
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.08);
+  border-color: rgba(var(--color-brand-primary-rgb), 0.25);
+}
+
+.decision-card--accent-orange .decision-card-icon-frame {
+  color: var(--color-brand-tertiary);
+  background: rgba(var(--color-brand-tertiary-rgb), 0.08);
+  border-color: rgba(var(--color-brand-tertiary-rgb), 0.25);
+}
+
+.decision-card-number {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+/* Contenido de la tarjeta */
+.decision-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.decision-card-title {
+  font-size: clamp(1.2rem, 1.5vw, 1.35rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  line-height: 1.25;
+}
+
+.decision-card-summary {
+  font-size: var(--text-small);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  /* Máximo dos líneas */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Pie de tarjeta */
+.decision-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.decision-card-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.decision-card-tag-pill {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.02em;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.decision-card-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.decision-card:hover .decision-card-action {
+  color: var(--color-text-primary);
+}
+
+.decision-card:hover .decision-card-action-arrow {
+  transform: translateX(3px);
+}
+
+.decision-card-action-arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--duration-fast) var(--ease-out-smooth);
+}
+
+/* --------------------------------------------------------------------------
+   3. PANEL DE DETALLE INTERACTIVO AMPLIADO (DecisionDetail)
+   -------------------------------------------------------------------------- */
+
+.decision-detail {
+  position: relative;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-xl);
+  padding: clamp(1.25rem, 2.2vw, 1.875rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Barra superior: botón Volver y navegación rápida */
+.decision-detail-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.decision-detail-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.95rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-medium);
+  transition:
+    background-color var(--duration-fast) var(--ease-out-smooth),
+    color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    transform var(--duration-fast) var(--ease-out-smooth);
+}
+
+.decision-detail-back-btn:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+  transform: translateX(-2px);
+}
+
+/* Navegación rápida 01-04 */
+.decision-detail-quicknav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.decision-quicknav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    color var(--duration-fast) var(--ease-out-smooth),
+    background-color var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.decision-quicknav-btn:hover {
+  color: var(--color-text-secondary);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.decision-quicknav-btn--active {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-border-medium);
+}
+
+.decision-quicknav-num {
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Encabezado del detalle */
+.decision-detail-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.decision-detail-title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.decision-detail-icon-frame {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.decision-detail--accent-blue .decision-detail-icon-frame {
+  color: var(--color-brand-secondary);
+  background: rgba(var(--color-brand-secondary-rgb), 0.1);
+  border-color: rgba(var(--color-brand-secondary-rgb), 0.3);
+}
+
+.decision-detail--accent-pink .decision-detail-icon-frame {
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.1);
+  border-color: rgba(var(--color-brand-primary-rgb), 0.3);
+}
+
+.decision-detail--accent-orange .decision-detail-icon-frame {
+  color: var(--color-brand-tertiary);
+  background: rgba(var(--color-brand-tertiary-rgb), 0.1);
+  border-color: rgba(var(--color-brand-tertiary-rgb), 0.3);
+}
+
+.decision-detail-meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.decision-detail-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-text-muted);
+}
+
+.decision-detail-title {
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.decision-detail-lead {
+  font-size: clamp(0.925rem, 1.1vw, 1.025rem);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+  max-width: 78ch;
+}
+
+/* Cuadrícula de 4 pilares: Situación, Alternativas, Decisión y Resultado */
+.decision-detail-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.75rem, 1.25vw, 1.25rem);
+}
+
+.decision-pillar-card {
+  background: rgba(20, 21, 25, 0.75);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(0.875rem, 1.4vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.decision-pillar-card--decision {
+  border-color: rgba(var(--color-brand-primary-rgb), 0.35);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-brand-primary-rgb), 0.07) 0%,
+    rgba(20, 21, 25, 0.85) 100%
+  );
+}
+
+.decision-pillar-header {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.decision-pillar-icon {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-muted);
+}
+
+.decision-pillar-card--decision .decision-pillar-icon {
+  color: var(--color-brand-primary);
+}
+
+.decision-pillar-card--result .decision-pillar-icon {
+  color: var(--color-brand-secondary);
+}
+
+.decision-pillar-title {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-primary);
+}
+
+.decision-pillar-text {
+  font-size: 0.85rem;
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   4. BLOQUE ESPECIAL DE EVALUACIÓN VISUAL (DECISIÓN 04)
+   -------------------------------------------------------------------------- */
+
+.decision-detail-special-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.decision-special-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.decision-special-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.04em;
+  color: var(--color-brand-primary);
+  background: rgba(var(--color-brand-primary-rgb), 0.1);
+  border: 1px solid var(--color-border-primary-subtle);
+}
+
+.decision-special-title {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.decision-comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(0.875rem, 1.5vw, 1.5rem);
+}
+
+.decision-comparison-box {
+  background: rgba(20, 21, 25, 0.8);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  padding: clamp(0.875rem, 1.25vw, 1.25rem);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.decision-comparison-box--selected {
+  border-color: rgba(var(--color-brand-primary-rgb), 0.45);
+  background: linear-gradient(
+    180deg,
+    rgba(var(--color-brand-primary-rgb), 0.05) 0%,
+    rgba(20, 21, 25, 0.9) 100%
+  );
+  box-shadow: 0 4px 20px -4px rgba(var(--color-brand-primary-rgb), 0.15);
+}
+
+.decision-comparison-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.decision-comparison-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.decision-comparison-pill {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-secondary);
+}
+
+.decision-comparison-name {
+  font-size: 0.95rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+}
+
+.decision-comparison-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.725rem;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+.decision-comparison-badge--selected {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+.decision-comparison-desc {
+  font-size: 0.8125rem;
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+/* Vista previa de wireframe / captura */
+.decision-comparison-preview {
+  height: 110px;
+  border-radius: var(--radius-md);
+  background: rgba(13, 14, 16, 0.85);
+  border: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.decision-comparison-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Wireframe conceptual claro y sobrio */
+.decision-wireframe {
+  width: 100%;
+  height: 100%;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.decision-wireframe-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  color: var(--color-text-muted);
+  text-align: right;
+  letter-spacing: 0.02em;
+}
+
+/* Wireframe Feed (Continuo) */
+.wireframe-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.wireframe-feed-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wireframe-avatar {
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.wireframe-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 75%;
+}
+
+.wireframe-line {
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.wireframe-line--title {
+  width: 48%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.wireframe-line--body {
+  width: 82%;
+}
+
+.wireframe-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* Wireframe Contenedores */
+.wireframe-containers {
+  display: flex;
+  gap: 8px;
+  height: calc(100% - 16px);
+}
+
+.wireframe-card {
+  flex: 1;
+  background: rgba(26, 27, 31, 0.9);
+  border: 1px solid rgba(224, 11, 80, 0.22);
+  border-radius: 6px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.wireframe-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.wireframe-card-pill {
+  width: 28px;
+  height: 4px;
+  border-radius: var(--radius-pill);
+  background: var(--color-brand-primary);
+  opacity: 0.8;
+}
+
+.wireframe-card-badge {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.wireframe-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   5. COMPLEMENTOS Y CHIPS (DECISIONES 01, 02, 03)
+   -------------------------------------------------------------------------- */
+
+.decision-detail-chips-block {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.decision-chips-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-secondary);
+}
+
+.decision-chips-list {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.decision-chip-pill {
+  font-family: var(--font-mono);
+  font-size: 0.725rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+}
+
+.decision-detail-supervision-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: var(--radius-md);
+  background: rgba(var(--color-brand-tertiary-rgb), 0.07);
+  border: 1px solid rgba(var(--color-brand-tertiary-rgb), 0.25);
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+}
+
+.decision-supervision-icon {
+  color: var(--color-brand-tertiary);
+  flex-shrink: 0;
+}
+
+.decision-supervision-text {
+  line-height: var(--leading-normal);
+}
+
+.decisions-scroll-indicator-wrap .hero-scroll-arrow-icon {
+  animation: showcaseScrollPulse 2.4s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   6. DISEÑO RESPONSIVO (1920x1080, 1366x768, TABLET Y MÓVIL)
+   -------------------------------------------------------------------------- */
+
+/* Optimización para laptops compactas (1366 x 768) */
+@media (min-width: 1025px) and (max-height: 820px) {
+  .decisions-section {
+    padding-top: calc(64px + var(--space-2));
+    padding-bottom: var(--space-3);
+  }
+
+  .decisions-container {
+    gap: var(--space-4);
+  }
+
+  .decisions-header {
+    gap: var(--space-1);
+  }
+
+  .decisions-title {
+    font-size: clamp(1.85rem, 2.9vw, 2.45rem);
+  }
+
+  .decisions-subtitle {
+    font-size: 0.925rem;
+  }
+
+  .decisions-stage {
+    min-height: 390px;
+  }
+
+  .decision-card {
+    padding: 1.125rem 1.25rem;
+    gap: var(--space-3);
+  }
+
+  .decision-detail {
+    padding: 1.125rem 1.35rem;
+    gap: var(--space-3);
+  }
+
+  .decision-comparison-preview {
+    height: 92px;
+  }
+}
+
+/* Tablet y pantallas medianas */
+@media (max-width: 1024px) {
+  .decisions-section {
+    min-height: auto;
+    padding: calc(82px + var(--space-6)) 0 var(--space-10);
+    gap: var(--space-8);
+  }
+
+  .decisions-container {
+    gap: var(--space-6);
+  }
+
+  .decisions-stage {
+    min-height: auto;
+  }
+
+  .decision-detail-pillars-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Móvil */
+@media (max-width: 768px) {
+  .decisions-section {
+    padding: calc(74px + var(--space-4)) 0 var(--space-8);
+  }
+
+  .decisions-container {
+    padding: 0 var(--space-4);
+    gap: var(--space-5);
+  }
+
+  .decisions-title {
+    font-size: clamp(1.8rem, 7vw, 2.3rem);
+  }
+
+  .decisions-grid-2x2 {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .decision-detail {
+    padding: var(--space-4);
+    gap: var(--space-4);
+  }
+
+  .decision-detail-topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .decision-detail-quicknav {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .decision-detail-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .decision-comparison-grid {
+    grid-template-columns: 1fr;
+  }
+}
+

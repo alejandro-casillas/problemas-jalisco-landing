@@ -420,10 +420,10 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. SECCIÓN PROVISIONAL DE DESCARGA (DESTINO DE NAVEGACIÓN #descargar)
+   5. SECCIÓN PROVISIONAL DE DEMOSTRACIÓN INTERACTIVA (DESTINO #probar)
    -------------------------------------------------------------------------- */
 
-.provisional-download-section {
+.provisional-probar-section {
   position: relative;
   min-height: 100vh;
   min-height: 100dvh;
@@ -442,7 +442,7 @@
     var(--color-bg-main);
 }
 
-.provisional-download-container {
+.provisional-probar-container {
   width: 100%;
   max-width: var(--container-narrow);
   margin: 0 auto;
@@ -453,7 +453,7 @@
   gap: var(--space-4);
 }
 
-.provisional-download-badge {
+.provisional-probar-badge {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
@@ -468,14 +468,14 @@
   border: 1px solid var(--color-border-primary-subtle);
 }
 
-.provisional-download-title {
+.provisional-probar-title {
   font-size: var(--text-h2);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text-primary);
 }
 
-.provisional-download-description {
+.provisional-probar-description {
   font-size: var(--text-body-large);
   color: var(--color-text-secondary);
   line-height: var(--leading-relaxed);

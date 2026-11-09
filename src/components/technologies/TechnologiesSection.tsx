@@ -609,11 +609,11 @@ export function TechnologiesSection({
         </div>
       </div>
 
-      {/* 4. INDICADOR INFERIOR REUTILIZADO ("Continuar a descarga") */}
+      {/* 4. INDICADOR INFERIOR REUTILIZADO ("Continuar a cambios y decisiones") */}
       <ScrollIndicator
-        targetId="descargar"
-        label="Continuar a descarga"
-        ariaLabel="Continuar a la sección de descarga"
+        targetId="cambios-decisiones"
+        label="Continuar a cambios y decisiones"
+        ariaLabel="Continuar a la sección de cambios y decisiones"
         dataGsap="tech-scroll-indicator"
         className="tech-scroll-indicator-wrap"
         onScrollToTarget={onNavigateToSection}

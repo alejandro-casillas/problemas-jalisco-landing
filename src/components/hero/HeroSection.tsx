@@ -224,7 +224,7 @@ export function HeroSection({ onNavigateToSection }: HeroSectionProps) {
               <button
                 type="button"
                 className="btn-secondary hero-btn-secondary"
-                onClick={() => handleScrollTo('funcionalidades')}
+                onClick={() => handleScrollTo('plan-construccion')}
               >
                 <Compass size={17} aria-hidden="true" />
                 <span>Conoce el proyecto</span>
@@ -249,7 +249,7 @@ export function HeroSection({ onNavigateToSection }: HeroSectionProps) {
 
         {/* Parte inferior: Indicador animado de scroll */}
         <ScrollIndicator
-          targetId="funcionalidades"
+          targetId="plan-construccion"
           onScrollToTarget={handleScrollTo}
         />
       </section>

@@ -76,16 +76,17 @@
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35));
 }
 
-/* Navegación de escritorio */
-.site-nav-desktop {
+/* Navegación principal minimalista (Inicio + Probar en escritorio y móvil) */
+.site-nav {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .site-nav-list {
   display: flex;
   align-items: center;
-  gap: var(--space-1);
+  gap: var(--space-2);
   list-style: none;
 }
 
@@ -97,8 +98,7 @@
 .site-nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.375rem;
-  padding: 0.45rem 0.875rem;
+  padding: 0.45rem 0.9rem;
   border-radius: var(--radius-pill);
   font-size: var(--text-small);
   font-weight: var(--font-weight-medium);
@@ -113,45 +113,47 @@ a.site-nav-link:hover {
   background-color: rgba(255, 255, 255, 0.06);
 }
 
-.site-nav-link--disabled {
-  color: var(--color-text-muted);
-  cursor: not-allowed;
-  opacity: 0.78;
-}
-
-.site-nav-link--cta-disabled {
-  margin-left: var(--space-1);
-  border: 1px solid var(--color-border-subtle);
-  background: rgba(255, 255, 255, 0.025);
-}
-
-.site-nav-soon-tag {
-  font-family: var(--font-mono);
-  font-size: 0.625rem;
-  font-weight: var(--font-weight-semibold);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.1rem 0.375rem;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--color-text-secondary);
-}
-
-/* Botón y panel de navegación móvil */
-.site-mobile-toggle {
-  display: none;
+/* Botón de acción principal Probar (Naranja institucional #FE8B01 con texto blanco) */
+.site-nav-cta-probar {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
-  height: 38px;
+  padding: 0.45rem 1.125rem;
   border-radius: var(--radius-pill);
-  color: var(--color-text-primary);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-brand-tertiary);
+  color: #ffffff;
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.35),
+    0 0 20px -4px rgba(var(--color-brand-tertiary-rgb), 0.45);
+  transition:
+    background-color var(--duration-fast) var(--ease-out-smooth),
+    transform var(--duration-fast) var(--ease-out-smooth),
+    box-shadow var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth);
+  user-select: none;
 }
 
-.site-nav-mobile {
-  display: none;
+.site-nav-cta-probar:hover {
+  background-color: var(--color-brand-tertiary-hover);
+  border-color: rgba(255, 255, 255, 0.34);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.45),
+    0 0 26px -2px rgba(var(--color-brand-tertiary-rgb), 0.65);
+  transform: translateY(-1px);
+}
+
+.site-nav-cta-probar:active {
+  transform: translateY(0);
+}
+
+.site-nav-cta-probar:focus-visible {
+  outline: 2px solid var(--color-brand-tertiary);
+  outline-offset: 3px;
 }
 
 /* --------------------------------------------------------------------------
@@ -897,47 +899,18 @@ a.site-nav-link:hover {
     max-height: 40px;
   }
 
-  .site-nav-desktop {
-    display: none;
-  }
-
-  .site-mobile-toggle {
-    display: inline-flex;
-  }
-
-  .site-nav-mobile {
-    display: block;
-    padding: var(--space-2) var(--space-4) var(--space-4);
-    border-top: 1px solid var(--color-border-subtle);
-  }
-
-  .site-nav-mobile-list {
-    display: flex;
-    flex-direction: column;
+  .site-nav-list {
     gap: var(--space-1);
-    list-style: none;
   }
 
-  .site-nav-mobile-link {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.65rem 0.875rem;
-    border-radius: var(--radius-md);
-    font-size: var(--text-body);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-secondary);
+  .site-nav-link {
+    padding: 0.375rem 0.65rem;
+    font-size: 0.8125rem;
   }
 
-  a.site-nav-mobile-link:hover {
-    color: var(--color-text-primary);
-    background: rgba(255, 255, 255, 0.05);
-  }
-
-  .site-nav-mobile-link--disabled {
-    color: var(--color-text-muted);
-    cursor: not-allowed;
+  .site-nav-cta-probar {
+    padding: 0.375rem 0.9rem;
+    font-size: 0.8125rem;
   }
 
   .hero-container {

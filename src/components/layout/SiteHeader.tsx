@@ -1,131 +1,80 @@
-import { useState } from 'react'
-import { Menu, X } from 'lucide-react'
-import { SHOWCASE_SECTIONS } from '../../data/sectionsConfig'
-import logoWebp from '../../assets/problemas-jalisco-letras-webp.webp'
-import logoPng from '../../assets/problemas-jalisco-letras-png.png'
+import type { MouseEvent } from 'react'
+import { type SectionId } from '../../data/sectionsConfig'
+import logoWebpUrl from '../../assets/problemas-jalisco-letras-webp.webp'
+import logoPngUrl from '../../assets/problemas-jalisco-letras-png.png'
 
 interface SiteHeaderProps {
-  onNavigate?: (targetId: string) => void
+  onNavigate?: (sectionId: SectionId) => void
 }
 
 export function SiteHeader({ onNavigate }: SiteHeaderProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
-  const handleLinkClick = (
-    e: React.MouseEvent<HTMLAnchorElement>,
-    targetId: string,
+  const handleAnchorClick = (
+    event: MouseEvent<HTMLAnchorElement>,
+    sectionId: SectionId,
   ) => {
-    setMobileMenuOpen(false)
-    if (onNavigate) {
-      e.preventDefault()
-      onNavigate(targetId)
+    event.preventDefault()
+
+    const target = document.getElementById(sectionId)
+    if (target) {
+      const prefersReducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)',
+      ).matches
+      target.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      })
     }
+
+    onNavigate?.(sectionId)
   }
 
   return (
-    <header className="site-header" data-gsap="site-header">
+    <header className="site-header" data-gsap="header">
       <div className="site-header-inner">
         <a
           href="#inicio"
           className="site-brand-link"
           aria-label="Problemas Jalisco — Ir al inicio"
-          onClick={(e) => handleLinkClick(e, 'inicio')}
+          onClick={(e) => handleAnchorClick(e, 'inicio')}
         >
           <span className="site-brand-logo-frame">
             <picture className="site-brand-picture">
-              <source srcSet={logoWebp} type="image/webp" />
+              <source srcSet={logoWebpUrl} type="image/webp" />
               <img
-                src={logoPng}
+                src={logoPngUrl}
                 alt="Problemas Jalisco"
                 className="site-brand-logo"
-                width={500}
-                height={300}
+                width={158}
+                height={80}
                 decoding="async"
               />
             </picture>
           </span>
         </a>
 
-        {/* Navegación de escritorio */}
-        <nav className="site-nav-desktop" aria-label="Navegación principal">
+        <nav className="site-nav" aria-label="Navegación principal">
           <ul className="site-nav-list">
-            {SHOWCASE_SECTIONS.map((item) => (
-              <li key={item.id} className="site-nav-item">
-                {item.isImplemented ? (
-                  <a
-                    href={`#${item.id}`}
-                    className="site-nav-link"
-                    onClick={(e) => handleLinkClick(e, item.id)}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    className={`site-nav-link site-nav-link--disabled ${
-                      item.id === 'descargar' ? 'site-nav-link--cta-disabled' : ''
-                    }`}
-                    disabled
-                    aria-disabled="true"
-                    title="Sección disponible en próximas fases del showcase"
-                  >
-                    <span>{item.label}</span>
-                    <span className="site-nav-soon-tag">Pronto</span>
-                  </button>
-                )}
-              </li>
-            ))}
+            <li className="site-nav-item">
+              <a
+                href="#inicio"
+                className="site-nav-link"
+                onClick={(e) => handleAnchorClick(e, 'inicio')}
+              >
+                Inicio
+              </a>
+            </li>
+            <li className="site-nav-item">
+              <a
+                href="#probar"
+                className="site-nav-cta-probar"
+                onClick={(e) => handleAnchorClick(e, 'probar')}
+              >
+                Probar
+              </a>
+            </li>
           </ul>
         </nav>
-
-        {/* Botón de menú móvil */}
-        <button
-          type="button"
-          className="site-mobile-toggle"
-          aria-expanded={mobileMenuOpen}
-          aria-controls="site-mobile-drawer"
-          aria-label={mobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-        >
-          {mobileMenuOpen ? <X size={20} aria-hidden="true" /> : <Menu size={20} aria-hidden="true" />}
-        </button>
       </div>
-
-      {/* Menú desplegable adaptable a móvil */}
-      {mobileMenuOpen && (
-        <nav
-          id="site-mobile-drawer"
-          className="site-nav-mobile"
-          aria-label="Navegación móvil"
-        >
-          <ul className="site-nav-mobile-list">
-            {SHOWCASE_SECTIONS.map((item) => (
-              <li key={item.id} className="site-nav-mobile-item">
-                {item.isImplemented ? (
-                  <a
-                    href={`#${item.id}`}
-                    className="site-nav-mobile-link"
-                    onClick={(e) => handleLinkClick(e, item.id)}
-                  >
-                    <span>{item.label}</span>
-                  </a>
-                ) : (
-                  <button
-                    type="button"
-                    className="site-nav-mobile-link site-nav-mobile-link--disabled"
-                    disabled
-                    aria-disabled="true"
-                  >
-                    <span>{item.label}</span>
-                    <span className="site-nav-soon-tag">Próxima fase</span>
-                  </button>
-                )}
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
     </header>
   )
 }
-

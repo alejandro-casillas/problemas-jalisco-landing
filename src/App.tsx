@@ -1,65 +1,85 @@
-import { Download } from 'lucide-react'
+import { useCallback } from 'react'
+import { Play } from 'lucide-react'
 import { HeroSection } from './components/hero/HeroSection'
-import { FeaturesShowcaseSection } from './components/showcase/FeaturesShowcaseSection'
+import { ConstructionPlanSection } from './components/construction/ConstructionPlanSection'
 import { TechnologiesSection } from './components/technologies/TechnologiesSection'
+import { DecisionsSection } from './components/decisions/DecisionsSection'
+import { FeaturesShowcaseSection } from './components/showcase/FeaturesShowcaseSection'
+import { TestingTransitionSection } from './components/transition/TestingTransitionSection'
 import { PreviousSectionButton } from './components/layout/PreviousSectionButton'
 
 function App() {
-  const scrollToSection = (targetId: string) => {
-    const element = document.getElementById(targetId)
-    if (!element) return
+  const handleScrollToSection = useCallback((targetId: string) => {
+    let targetEl = document.getElementById(targetId)
 
-    const prefersReducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    // Si la sección aún no está implementada (ej. #resultados-aprendizajes),
+    // navegamos suavemente a la siguiente sección implementada para evitar enlaces rotos.
+    if (!targetEl) {
+      if (targetId === 'resultados-aprendizajes') {
+        targetEl = document.getElementById('funcionalidades')
+      }
+    }
 
-    element.scrollIntoView({
+    if (!targetEl) return
+
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+
+    targetEl.scrollIntoView({
       behavior: prefersReducedMotion ? 'auto' : 'smooth',
       block: 'start',
     })
-  }
+  }, [])
 
   return (
-    <div className="showcase-app">
-      {/* 1. SECCIÓN PRINCIPAL: HERO CINEMATOGRÁFICO (FASE 1.4) */}
-      <HeroSection onNavigateToSection={scrollToSection} />
+    <main>
+      {/* 01. Hero cinematográfico definitivo (Fase 1.4 + Ajustes de identidad) */}
+      <HeroSection />
 
-      {/* 2. CARRUSEL CINEMATOGRÁFICO DE FUNCIONALIDADES (FASE 1.5 / 1.5.1) */}
-      <FeaturesShowcaseSection onNavigateToSection={scrollToSection} />
+      {/* 02. Plan de construcción — Línea de tiempo cinematográfica (Fase 1.7) */}
+      <ConstructionPlanSection />
 
-      {/* 3. ARQUITECTURA CONECTADA Y TECNOLOGÍAS (FASE 1.6) */}
-      <TechnologiesSection onNavigateToSection={scrollToSection} />
+      {/* 03. Tecnologías y arquitectura conectada (Fase 1.6 / 1.6.1) */}
+      <TechnologiesSection onNavigateToSection={handleScrollToSection} />
 
-      {/* 4. SECCIÓN PROVISIONAL DE DESCARGA (DESTINO DE NAVEGACIÓN) */}
+      {/* 04. Cambios y decisiones (Fase 1.8) */}
+      <DecisionsSection onNavigateToSection={handleScrollToSection} />
+
+      {/* Anclaje de destino preparado para conectar la futura sección 05 */}
+      <div id="resultados-aprendizajes" aria-hidden="true" />
+
+      {/* 06. Carrusel cinematográfico de funcionalidades (Fase 1.5 / 1.5.1) */}
+      <FeaturesShowcaseSection onNavigateToSection={handleScrollToSection} />
+
+      {/* 07. Transición a Pruebas y equipo de desarrollo (Fase 1.9) */}
+      <TestingTransitionSection onNavigateToSection={handleScrollToSection} />
+
+      {/* 08. Sección provisional de destino de navegación (#probar) */}
       <section
-        id="descargar"
-        className="provisional-download-section"
-        aria-labelledby="provisional-download-heading"
+        id="probar"
+        className="provisional-probar-section"
+        aria-labelledby="probar-section-heading"
       >
-        <div className="provisional-download-container">
-          <div className="provisional-download-badge">
-            <Download size={14} aria-hidden="true" />
-            <span>ACCESO CIUDADANO · PRÓXIMA FASE</span>
+        <div className="provisional-probar-container">
+          <div className="provisional-probar-badge">
+            <Play size={14} aria-hidden="true" />
+            <span>DEMOSTRACIÓN INTERACTIVA</span>
           </div>
 
-          <h2
-            id="provisional-download-heading"
-            className="provisional-download-title"
-          >
-            Descarga Problemas Jalisco
+          <h2 id="probar-section-heading" className="provisional-probar-title">
+            Ahora es tu turno de explorar
           </h2>
 
-          <p className="provisional-download-description">
-            Sección provisional preparada como destino de navegación. Aquí se
-            integrará el llamado final a la acción y los enlaces de descarga en
-            la siguiente etapa.
+          <p className="provisional-probar-description">
+            Conoce Problemas Jalisco directamente en una aplicación funcional.
           </p>
         </div>
       </section>
 
-      {/* CONTROL DISCRETO FLOTANTE: REGRESO A LA SECCIÓN ANTERIOR */}
-      <PreviousSectionButton onNavigateToSection={scrollToSection} />
-    </div>
+      {/* Navegación flotante discreta para regresar a la sección anterior */}
+      <PreviousSectionButton onNavigateToSection={handleScrollToSection} />
+    </main>
   )
 }
 

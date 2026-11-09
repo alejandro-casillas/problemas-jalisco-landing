@@ -624,11 +624,11 @@ export function FeaturesShowcaseSection({
         </div>
       </div>
 
-      {/* Parte inferior: Reutilización del indicador de avance hacia Tecnologías */}
+      {/* Parte inferior: Indicador de avance hacia Transición a Pruebas */}
       <ScrollIndicator
-        targetId="tecnologias"
-        label="Continuar a tecnologías"
-        ariaLabel="Continuar a la sección de tecnologías"
+        targetId="transicion-pruebas"
+        label="Continuar a transición a pruebas"
+        ariaLabel="Continuar a la sección de transición a pruebas"
         dataGsap="showcase-scroll-indicator"
         className="showcase-scroll-indicator-wrap"
         onScrollToTarget={onNavigateToSection}

@@ -7,7 +7,7 @@ import {
 } from '../../data/sectionsConfig'
 
 interface PreviousSectionButtonProps {
-  onNavigateToSection: (targetId: string) => void
+  onNavigateToSection?: (targetId: string) => void
 }
 
 /**
@@ -74,8 +74,22 @@ export function PreviousSectionButton({
       aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
       onClick={() => {
-        if (previousSectionId) {
+        if (!previousSectionId) return
+
+        if (onNavigateToSection) {
           onNavigateToSection(previousSectionId)
+          return
+        }
+
+        const targetEl = document.getElementById(previousSectionId)
+        if (targetEl) {
+          const prefersReducedMotion = window.matchMedia(
+            '(prefers-reduced-motion: reduce)',
+          ).matches
+          targetEl.scrollIntoView({
+            behavior: prefersReducedMotion ? 'auto' : 'smooth',
+            block: 'start',
+          })
         }
       }}
     >
