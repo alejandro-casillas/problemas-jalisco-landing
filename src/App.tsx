@@ -1,6 +1,7 @@
-import { Cpu } from 'lucide-react'
+import { Download } from 'lucide-react'
 import { HeroSection } from './components/hero/HeroSection'
 import { FeaturesShowcaseSection } from './components/showcase/FeaturesShowcaseSection'
+import { TechnologiesSection } from './components/technologies/TechnologiesSection'
 import { PreviousSectionButton } from './components/layout/PreviousSectionButton'
 
 function App() {
@@ -26,26 +27,32 @@ function App() {
       {/* 2. CARRUSEL CINEMATOGRÁFICO DE FUNCIONALIDADES (FASE 1.5 / 1.5.1) */}
       <FeaturesShowcaseSection onNavigateToSection={scrollToSection} />
 
-      {/* 3. SECCIÓN PROVISIONAL DE TECNOLOGÍAS (DESTINO DE NAVEGACIÓN) */}
+      {/* 3. ARQUITECTURA CONECTADA Y TECNOLOGÍAS (FASE 1.6) */}
+      <TechnologiesSection onNavigateToSection={scrollToSection} />
+
+      {/* 4. SECCIÓN PROVISIONAL DE DESCARGA (DESTINO DE NAVEGACIÓN) */}
       <section
-        id="tecnologias"
-        className="provisional-tech-section"
-        aria-labelledby="provisional-tech-heading"
+        id="descargar"
+        className="provisional-download-section"
+        aria-labelledby="provisional-download-heading"
       >
-        <div className="provisional-tech-container">
-          <div className="provisional-tech-badge">
-            <Cpu size={14} aria-hidden="true" />
-            <span>ARQUITECTURA Y STACK · PRÓXIMA FASE</span>
+        <div className="provisional-download-container">
+          <div className="provisional-download-badge">
+            <Download size={14} aria-hidden="true" />
+            <span>ACCESO CIUDADANO · PRÓXIMA FASE</span>
           </div>
 
-          <h2 id="provisional-tech-heading" className="provisional-tech-title">
-            Tecnologías que impulsan Problemas Jalisco
+          <h2
+            id="provisional-download-heading"
+            className="provisional-download-title"
+          >
+            Descarga Problemas Jalisco
           </h2>
 
-          <p className="provisional-tech-description">
+          <p className="provisional-download-description">
             Sección provisional preparada como destino de navegación. Aquí se
-            presentará la infraestructura técnica del proyecto en la siguiente
-            fase.
+            integrará el llamado final a la acción y los enlaces de descarga en
+            la siguiente etapa.
           </p>
         </div>
       </section>

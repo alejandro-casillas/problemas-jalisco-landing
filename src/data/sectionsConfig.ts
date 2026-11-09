@@ -15,7 +15,7 @@ export const SHOWCASE_SECTIONS: SectionDefinition[] = [
   { id: 'inicio', label: 'Inicio', isImplemented: true },
   { id: 'funcionalidades', label: 'Funcionalidades', isImplemented: true },
   { id: 'tecnologias', label: 'Tecnologías', isImplemented: true },
-  { id: 'descargar', label: 'Descargar', isImplemented: false },
+  { id: 'descargar', label: 'Descargar', isImplemented: true },
 ]
 
 export const IMPLEMENTED_SECTION_IDS: SectionId[] = SHOWCASE_SECTIONS.filter(
