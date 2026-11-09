@@ -1,5 +1,4 @@
 import type { ReactNode } from 'react'
-import { Image as ImageIcon, Layers } from 'lucide-react'
 import logoWebp from '../../assets/problemas-jalisco-letras-webp.webp'
 import logoPng from '../../assets/problemas-jalisco-letras-png.png'
 
@@ -66,17 +65,8 @@ export function PhoneMockup({
               ) : children ? (
                 children
               ) : (
-                /* Contenido provisional claramente identificable (sin interfaces ficticias) */
+                /* Pantalla limpia con logotipo oficial centrado */
                 <div className="phone-provisional-screen">
-                  <div className="phone-provisional-top-glow" aria-hidden="true" />
-
-                  <div className="phone-provisional-status">
-                    <span className="phone-provisional-pill">
-                      <Layers size={11} aria-hidden="true" />
-                      <span>CONTENIDO PROVISIONAL</span>
-                    </span>
-                  </div>
-
                   <div className="phone-provisional-center">
                     <div className="phone-provisional-logo-box">
                       <picture>
@@ -89,21 +79,6 @@ export function PhoneMockup({
                           height={300}
                         />
                       </picture>
-                    </div>
-
-                    <div className="phone-provisional-divider" aria-hidden="true" />
-
-                    <div className="phone-provisional-notice">
-                      <span className="phone-provisional-icon-badge" aria-hidden="true">
-                        <ImageIcon size={16} />
-                      </span>
-                      <p className="phone-provisional-title">
-                        Espacio preparado para captura real
-                      </p>
-                      <p className="phone-provisional-caption">
-                        Marco 9:19.5 con recorte automático listo para integrar las
-                        pantallas oficiales de Problemas Jalisco.
-                      </p>
                     </div>
                   </div>
 

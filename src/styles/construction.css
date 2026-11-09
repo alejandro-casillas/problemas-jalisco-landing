@@ -59,6 +59,17 @@
   border: none;
 }
 
+.construction-eyebrow-title {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  margin: 0;
+  line-height: inherit;
+}
+
 .construction-title {
   font-size: clamp(2.1rem, 3.8vw, 3.35rem);
   font-weight: var(--font-weight-bold);
@@ -93,8 +104,8 @@
 .construction-timeline-track-h {
   position: absolute;
   top: calc(var(--space-4) + 18px);
-  left: 12.5%;
-  right: 12.5%;
+  left: 8%;
+  right: 8%;
   height: 2px;
   pointer-events: none;
   z-index: 1;
@@ -118,13 +129,14 @@
   display: none;
 }
 
-/* Lista de los 4 hitos en columnas abiertas */
+/* Lista de los hitos: 4 principales, 1 punto intermedio compacto y 1 próximo */
 .construction-milestones-list {
   position: relative;
   z-index: 2;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 2.5rem);
+  grid-template-columns: repeat(4, 1.1fr) 0.8fr 1fr;
+  align-items: flex-start;
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
   list-style: none;
 }
 
@@ -134,7 +146,7 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: var(--space-5);
+  gap: var(--space-4);
   background: transparent;
   border: none;
   box-shadow: none;
@@ -153,43 +165,85 @@
 
 .construction-milestone-node {
   position: relative;
-  width: 18px;
-  height: 18px;
+  width: 34px;
+  height: 34px;
   border-radius: var(--radius-pill);
-  background-color: var(--color-bg-main);
-  border: 2px solid var(--color-brand-primary);
-  box-shadow: 0 0 0 4px var(--color-bg-main);
+  background-color: #121316;
+  border: 1.5px solid var(--color-brand-secondary);
+  box-shadow: 0 0 0 4px #0B0B0E;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: var(--color-brand-secondary);
   transition:
     transform var(--duration-fast) var(--ease-out-smooth),
-    border-color var(--duration-fast) var(--ease-out-smooth);
+    border-color var(--duration-fast) var(--ease-out-smooth),
+    color var(--duration-fast) var(--ease-out-smooth);
+}
+
+.construction-milestone-icon {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2.2;
+}
+
+/* Nodo compacto para el circulito de Exposición Construcción en naranja */
+.construction-milestone-node--compact {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--color-brand-tertiary);
+  background-color: #121316;
+  color: var(--color-brand-tertiary);
+}
+
+.construction-milestone-dot-core {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background-color: var(--color-brand-tertiary);
 }
 
 .construction-milestone-item:hover .construction-milestone-node {
-  transform: scale(1.1);
-  border-color: var(--color-brand-primary-hover);
+  transform: scale(1.12);
+  border-color: var(--color-brand-secondary-hover);
+  color: var(--color-brand-secondary-hover);
 }
 
-.construction-milestone-node-core {
-  width: 6px;
-  height: 6px;
-  border-radius: var(--radius-pill);
-  background-color: var(--color-brand-primary);
+/* Hito 00 · Diseño: nodo e icono en blanco */
+.construction-milestone-node--diseno {
+  border-color: var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
-/* Hito de adaptación y reprogramación (02 · Sprint II): acento naranja limpio sin resplandores */
+.construction-milestone-item:hover .construction-milestone-node--diseno {
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+}
+
+/* Hito de adaptación y reprogramación (Sprint II): acento naranja limpio */
 .construction-milestone-node--adaptation {
   border-color: var(--color-brand-tertiary);
+  color: var(--color-brand-tertiary);
 }
 
 .construction-milestone-item--adaptation:hover .construction-milestone-node--adaptation {
   border-color: var(--color-brand-tertiary-hover);
+  color: var(--color-brand-tertiary-hover);
 }
 
-.construction-milestone-node--adaptation .construction-milestone-node-core {
-  background-color: var(--color-brand-tertiary);
+/* Hito de Próximamente: estilo tenue/futuro con borde sutil */
+.construction-milestone-node--upcoming {
+  border-color: var(--color-brand-secondary);
+  border-style: dashed;
+  color: var(--color-brand-secondary);
+  background-color: #121316;
+  opacity: 0.85;
+}
+
+.construction-milestone-item--upcoming:hover .construction-milestone-node--upcoming {
+  border-color: var(--color-brand-secondary-hover);
+  color: var(--color-brand-secondary-hover);
+  opacity: 1;
 }
 
 /* Jerarquía tipográfica abierta de cada hito: Número, Título y Descripción */
@@ -197,69 +251,136 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.375rem;
-  max-width: 240px;
+  gap: 0.35rem;
+  max-width: 200px;
 }
 
-.construction-milestone-number {
+.construction-milestone-copy--compact {
+  gap: 0.1rem;
+  max-width: 120px;
+}
+
+.construction-milestone-number,
+.construction-milestone-date {
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: 0.72rem;
   font-weight: var(--font-weight-semibold);
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
   color: var(--color-brand-primary);
 }
 
-.construction-milestone-number--adaptation {
+.construction-milestone-number--adaptation,
+.construction-milestone-date--adaptation {
   color: var(--color-brand-tertiary);
 }
 
+.construction-milestone-date--upcoming {
+  color: var(--color-text-secondary);
+}
+
 .construction-milestone-title {
-  font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+  font-size: clamp(1.05rem, 1.25vw, 1.25rem);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text-primary);
   line-height: 1.22;
 }
 
+.construction-milestone-copy--compact .construction-milestone-title {
+  font-size: 0.72rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.construction-milestone-item--upcoming .construction-milestone-title {
+  color: var(--color-text-secondary);
+}
+
 .construction-milestone-description {
-  font-size: var(--text-small);
-  line-height: var(--leading-normal);
+  font-size: 0.78rem;
+  line-height: 1.35;
   color: var(--color-text-secondary);
   padding-top: 0.125rem;
 }
 
+.construction-milestone-copy--compact .construction-milestone-description {
+  font-size: 0.64rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding-top: 0;
+}
+
+.construction-milestone-item--upcoming .construction-milestone-description {
+  color: var(--color-text-muted);
+}
+
 /* --------------------------------------------------------------------------
-   3. CIERRE ACADÉMICO EDITORIAL DISCRETO
+   3. BLOQUE VISUAL EDITORIAL: LO QUE SIGUE (ENERO 2027)
    -------------------------------------------------------------------------- */
 
-.construction-context-footer {
-  display: inline-flex;
-  flex-wrap: wrap;
+.construction-next-phase {
+  width: 100%;
+  max-width: 820px;
+  margin: var(--space-4) auto 0;
+  padding: var(--space-5) var(--space-6);
+  background-color: #121316;
+  border: 1px solid var(--color-border-subtle);
+  position: relative;
+}
+
+.construction-next-phase-content {
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.construction-next-phase-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.construction-next-phase-title {
+  font-size: clamp(1.15rem, 1.6vw, 1.35rem);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+.construction-next-phase-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
+.construction-next-phase-indicator {
+  display: flex;
+  align-items: center;
   gap: var(--space-3);
-  padding-top: var(--space-4);
-  border-top: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+.construction-next-phase-pill {
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: 0.68rem;
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--color-text-muted);
-  text-align: center;
+  background-color: #1B1C22;
+  border: 1px solid var(--color-border-subtle);
+  padding: 0.25rem 0.65rem;
 }
 
-.construction-context-primary {
-  color: var(--color-text-secondary);
-  font-weight: var(--font-weight-semibold);
-}
-
-.construction-context-sep {
+.construction-next-phase-arrow {
+  width: 16px;
+  height: 16px;
   color: var(--color-brand-primary);
-  opacity: 0.8;
-}
-
-.construction-context-secondary {
-  color: var(--color-text-muted);
 }
 
 /* --------------------------------------------------------------------------

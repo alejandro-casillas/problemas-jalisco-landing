@@ -43,16 +43,6 @@ export function DecisionsSection({
         y: 18,
       })
 
-      gsap.set('[data-decisions-gsap="title"]', {
-        autoAlpha: 0,
-        y: 22,
-      })
-
-      gsap.set('[data-decisions-gsap="subtitle"]', {
-        autoAlpha: 0,
-        y: 16,
-      })
-
       gsap.set('[data-decisions-gsap="card"]', {
         autoAlpha: 0,
         y: 20,
@@ -87,29 +77,7 @@ export function DecisionsSection({
             duration: 0.55,
           })
 
-          // 2. Encabezado principal
-          tl.to(
-            '[data-decisions-gsap="title"]',
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.65,
-            },
-            '-=0.38',
-          )
-
-          // 3. Subtítulo
-          tl.to(
-            '[data-decisions-gsap="subtitle"]',
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.5,
-            },
-            '-=0.4',
-          )
-
-          // 4. Las cuatro tarjetas entran en stagger
+          // 2. Las cuatro tarjetas entran en stagger
           tl.to(
             '[data-decisions-gsap="card"]',
             {
@@ -118,7 +86,7 @@ export function DecisionsSection({
               duration: 0.55,
               stagger: 0.08,
             },
-            '-=0.3',
+            '-=0.2',
           )
 
           // 5. Indicador inferior
@@ -208,23 +176,10 @@ export function DecisionsSection({
             className="decisions-eyebrow-badge"
             data-decisions-gsap="eyebrow"
           >
-            <span>{DECISIONS_SECTION_META.eyebrow}</span>
+            <h2 id="decisions-section-heading" className="decisions-eyebrow-title">
+              {DECISIONS_SECTION_META.eyebrow}
+            </h2>
           </div>
-
-          <h2
-            id="decisions-section-heading"
-            className="decisions-title"
-            data-decisions-gsap="title"
-          >
-            {DECISIONS_SECTION_META.titlePrefix}{' '}
-            <span className="decisions-title-accent">
-              {DECISIONS_SECTION_META.titleAccent}
-            </span>
-          </h2>
-
-          <p className="decisions-subtitle" data-decisions-gsap="subtitle">
-            {DECISIONS_SECTION_META.subtitle}
-          </p>
         </header>
 
         {/* 2. Escenario interactivo: Cuadrícula 2x2 o Detalle ampliado */}

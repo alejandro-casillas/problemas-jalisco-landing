@@ -1,75 +1,74 @@
-# React + TypeScript + Vite
+# Problemas Jalisco — Showcase
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web de presentación oficial de **Problemas Jalisco**, una aplicación desarrollada para facilitar la identificación, publicación y seguimiento de problemáticas en espacios públicos del estado de Jalisco, México.
 
-Currently, two official plugins are available:
+Este repositorio contiene una experiencia web interactiva diseñada para presentar el proyecto, sus principales funcionalidades, tecnologías y propuesta de valor.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Sobre el proyecto
 
-## React Compiler
+**Problemas Jalisco** es una plataforma que permite a los ciudadanos reportar problemáticas de su entorno, consultar publicaciones de otros usuarios, interactuar mediante comentarios y apoyos, y dar seguimiento al estado de los reportes.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+La solución está organizada en tres repositorios independientes:
 
-## Expanding the ESLint configuration
+| Repositorio | Descripción |
+|---|---|
+| [problemas-jalisco-front](https://github.com/Alex2os/problemas-jalisco-front) | Aplicación multiplataforma desarrollada con React Native y Expo. |
+| [problemas-jalisco-api](https://github.com/Alex2os/problemas-jalisco-api) | API REST desarrollada con ASP.NET Core y PostgreSQL. |
+| [problemas-jalisco-showcase](https://github.com/Alex2os/problemas-jalisco-showcase) | Sitio web de presentación interactiva del proyecto. |
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Este showcase no sustituye al frontend ni al backend de la aplicación.** Su propósito es comunicar visualmente el funcionamiento, alcance e identidad de Problemas Jalisco.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Tecnologías
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Showcase
+- React
+- TypeScript
+- Vite
+- GSAP — animaciones y transiciones
+- Lucide React — iconografía
+- CSS — estilos y diseño responsivo
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Aplicación principal
+- React Native
+- Expo y Expo Router
+- TypeScript
+- ASP.NET Core / C#
+- PostgreSQL
+- API REST
 
+## Ejecutar localmente
+
+**Requisitos:** Node.js y npm.
+
+```bash
+git clone https://github.com/Alex2os/problemas-jalisco-showcase.git
+cd problemas-jalisco-showcase
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Para generar la versión de producción:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build
 ```
+
+Para previsualizarla:
+
+```bash
+npm run preview
+```
+
+## Despliegue
+
+El sitio está preparado para publicarse como aplicación web estática mediante **GitHub Pages**, utilizando Vite para la compilación de producción.
+
+## Contexto académico
+
+Problemas Jalisco forma parte de un proyecto de desarrollo de software realizado en el **Centro Universitario de Ciencias Exactas e Ingenierías (CUCEI)** de la Universidad de Guadalajara.
+
+El showcase fue creado para presentar visualmente los avances, funcionalidades e identidad del proyecto.
+
+---
+
+**Problemas Jalisco** — Tecnología para visibilizar y dar seguimiento a las problemáticas de nuestra comunidad.

@@ -1,9 +1,25 @@
 import { useEffect } from 'react'
-import { ArrowLeft, CheckCircle2 } from 'lucide-react'
+import gsap from 'gsap'
+import {
+  ArrowLeft,
+  ArrowRight,
+  Blocks,
+  Bot,
+  Clock,
+  HelpCircle,
+  Layers,
+  Layout,
+  Network,
+  Package,
+  Palette,
+  Server,
+  ShieldCheck,
+  Sparkles,
+} from 'lucide-react'
 import {
   DECISIONS_DATA,
   type DecisionItem,
-  type VisualAlternative,
+  type FlowIconName,
 } from '../../data/decisionsData'
 
 interface DecisionDetailProps {
@@ -12,122 +28,35 @@ interface DecisionDetailProps {
   onSelectDecision: (id: DecisionItem['id']) => void
 }
 
-/**
- * Blueprint / Wireframe visual para la comparativa de la Decisión 04.
- * Ilustra la diferencia estructural real sin usar capturas ficticias de terceros.
- */
-function VisualComparisonCard({
-  alternative,
-  isContinuous,
-}: {
-  alternative: VisualAlternative
-  isContinuous: boolean
-}) {
-  const isSelected = Boolean(alternative.isSelected)
-
-  return (
-    <div
-      className={`decision-comparison-box ${
-        isSelected ? 'decision-comparison-box--selected' : ''
-      }`}
-    >
-      <div className="decision-comparison-header">
-        <div className="decision-comparison-title-wrap">
-          <span className="decision-comparison-tag">{alternative.label}</span>
-          <h4 className="decision-comparison-name">{alternative.name}</h4>
-        </div>
-        <span
-          className={`decision-comparison-badge ${
-            isSelected ? 'decision-comparison-badge--selected' : ''
-          }`}
-        >
-          {isSelected ? (
-            <>
-              <CheckCircle2 size={13} aria-hidden="true" />
-              <span>{alternative.badgeText}</span>
-            </>
-          ) : (
-            <span>{alternative.badgeText}</span>
-          )}
-        </span>
-      </div>
-
-      <p className="decision-comparison-desc">{alternative.description}</p>
-
-      {/* Espacio preparado para captura real o renderizado de wireframe conceptual */}
-      <div className="decision-comparison-preview">
-        {alternative.screenshotSrc ? (
-          <img
-            src={alternative.screenshotSrc}
-            alt={`Captura real de la alternativa: ${alternative.name}`}
-            className="decision-comparison-image"
-          />
-        ) : (
-          <div
-            className={`decision-wireframe ${
-              isContinuous
-                ? 'decision-wireframe--continuous'
-                : 'decision-wireframe--containers'
-            }`}
-            aria-label={alternative.placeholderLabel}
-          >
-            {isContinuous ? (
-              /* Wireframe estilizado de diseño continuo: lista fluida con separadores */
-              <div className="wireframe-feed">
-                <div className="wireframe-feed-item">
-                  <div className="wireframe-avatar" />
-                  <div className="wireframe-lines">
-                    <div className="wireframe-line wireframe-line--title" />
-                    <div className="wireframe-line wireframe-line--body" />
-                  </div>
-                </div>
-                <div className="wireframe-divider" />
-                <div className="wireframe-feed-item">
-                  <div className="wireframe-avatar" />
-                  <div className="wireframe-lines">
-                    <div className="wireframe-line wireframe-line--title" />
-                    <div className="wireframe-line wireframe-line--body" />
-                  </div>
-                </div>
-                <div className="wireframe-divider" />
-                <div className="wireframe-feed-item">
-                  <div className="wireframe-avatar" />
-                  <div className="wireframe-lines">
-                    <div className="wireframe-line wireframe-line--title" />
-                  </div>
-                </div>
-              </div>
-            ) : (
-              /* Wireframe estilizado de diseño con contenedores: bloques modulares delimitados */
-              <div className="wireframe-containers">
-                <div className="wireframe-card">
-                  <div className="wireframe-card-header">
-                    <div className="wireframe-card-pill" />
-                    <div className="wireframe-card-badge" />
-                  </div>
-                  <div className="wireframe-card-body">
-                    <div className="wireframe-line wireframe-line--title" />
-                    <div className="wireframe-line wireframe-line--body" />
-                  </div>
-                </div>
-                <div className="wireframe-card">
-                  <div className="wireframe-card-header">
-                    <div className="wireframe-card-pill" />
-                  </div>
-                  <div className="wireframe-card-body">
-                    <div className="wireframe-line wireframe-line--body" />
-                  </div>
-                </div>
-              </div>
-            )}
-            <span className="decision-wireframe-label">
-              {alternative.placeholderLabel}
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
-  )
+function renderFlowIcon(name: FlowIconName, size = 22) {
+  switch (name) {
+    case 'HelpCircle':
+      return <HelpCircle size={size} aria-hidden="true" />
+    case 'Package':
+      return <Package size={size} aria-hidden="true" />
+    case 'Clock':
+      return <Clock size={size} aria-hidden="true" />
+    case 'Layout':
+      return <Layout size={size} aria-hidden="true" />
+    case 'Server':
+      return <Server size={size} aria-hidden="true" />
+    case 'Blocks':
+      return <Blocks size={size} aria-hidden="true" />
+    case 'Bot':
+      return <Bot size={size} aria-hidden="true" />
+    case 'Palette':
+      return <Palette size={size} aria-hidden="true" />
+    case 'Network':
+      return <Network size={size} aria-hidden="true" />
+    case 'ShieldCheck':
+      return <ShieldCheck size={size} aria-hidden="true" />
+    case 'Sparkles':
+      return <Sparkles size={size} aria-hidden="true" />
+    case 'Layers':
+      return <Layers size={size} aria-hidden="true" />
+    default:
+      return <Sparkles size={size} aria-hidden="true" />
+  }
 }
 
 export function DecisionDetail({
@@ -146,6 +75,25 @@ export function DecisionDetail({
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [onBack])
+
+  // Animación cinematográfica escalonada al montar o cambiar de decisión
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)',
+    ).matches
+    if (prefersReducedMotion) return
+
+    gsap.fromTo(
+      '[data-decisions-gsap="flow-block"]',
+      { autoAlpha: 0, y: 14 },
+      { autoAlpha: 1, y: 0, duration: 0.38, stagger: 0.08, ease: 'power2.out' },
+    )
+    gsap.fromTo(
+      '[data-decisions-gsap="flow-connector"]',
+      { autoAlpha: 0, scale: 0.9 },
+      { autoAlpha: 1, scale: 1, duration: 0.35, delay: 0.12, ease: 'power2.out' },
+    )
+  }, [decision.id])
 
   const accentClass = `decision-detail--accent-${decision.accentColor}`
 
@@ -203,110 +151,87 @@ export function DecisionDetail({
         <h3 id="decision-detail-title" className="decision-detail-title">
           {decision.title}
         </h3>
-        <p className="decision-detail-lead">{decision.summary}</p>
+        {decision.flowSubtitle && (
+          <p className="decision-detail-lead">{decision.flowSubtitle}</p>
+        )}
       </header>
 
-      {/* 3. Cuatro columnas editoriales abiertas: Situación, Alternativas, Decisión y Resultado */}
-      <div className="decision-detail-pillars-grid">
-        {/* Columna 1: Situación */}
-        <div className="decision-pillar-col decision-pillar-col--situation">
-          <h4 className="decision-pillar-title">Situación</h4>
-          <p className="decision-pillar-text">{decision.situation}</p>
+      {/* 3. Secuencia cinematográfica de 3 bloques conectados: ANTES -> DECIDIMOS -> RESULTADO */}
+      <div
+        className="decision-flow-stage"
+        role="region"
+        aria-label="Secuencia de decisión: Antes, Decidimos y Resultado"
+      >
+        {/* Bloque 1: ANTES */}
+        <div
+          className="decision-flow-card decision-flow-card--before"
+          data-decisions-gsap="flow-block"
+        >
+          <div className="decision-flow-card-header">
+            <span className="decision-flow-card-icon" aria-hidden="true">
+              {renderFlowIcon(decision.beforeStep.iconName, 18)}
+            </span>
+            <span className="decision-flow-card-label">
+              {decision.beforeStep.label}
+            </span>
+          </div>
+          <p className="decision-flow-card-text">{decision.beforeStep.text}</p>
         </div>
 
-        {/* Columna 2: Alternativas */}
-        <div className="decision-pillar-col decision-pillar-col--alternatives">
-          <h4 className="decision-pillar-title">Alternativas</h4>
-          <p className="decision-pillar-text">{decision.alternativesSummary}</p>
+        {/* Conector discreto 1 -> 2 */}
+        <div
+          className="decision-flow-connector"
+          data-decisions-gsap="flow-connector"
+          aria-hidden="true"
+        >
+          <span className="decision-flow-connector-line" />
+          <ArrowRight size={16} className="decision-flow-connector-arrow" />
+          <span className="decision-flow-connector-line" />
         </div>
 
-        {/* Columna 3: Decisión (destacada sobria) */}
-        <div className="decision-pillar-col decision-pillar-col--decision">
-          <h4 className="decision-pillar-title">Decisión</h4>
-          <p className="decision-pillar-text">{decision.decision}</p>
+        {/* Bloque 2: DECIDIMOS (PROTAGONISTA) */}
+        <div
+          className="decision-flow-card decision-flow-card--decided"
+          data-decisions-gsap="flow-block"
+        >
+          <div className="decision-flow-card-header">
+            <span className="decision-flow-card-icon" aria-hidden="true">
+              {renderFlowIcon(decision.decidedStep.iconName, 22)}
+            </span>
+            <span className="decision-flow-card-label">
+              {decision.decidedStep.label}
+            </span>
+          </div>
+          <p className="decision-flow-card-text">{decision.decidedStep.text}</p>
         </div>
 
-        {/* Columna 4: Resultado */}
-        <div className="decision-pillar-col decision-pillar-col--result">
-          <h4 className="decision-pillar-title">Resultado</h4>
-          <p className="decision-pillar-text">{decision.result}</p>
+        {/* Conector discreto 2 -> 3 */}
+        <div
+          className="decision-flow-connector"
+          data-decisions-gsap="flow-connector"
+          aria-hidden="true"
+        >
+          <span className="decision-flow-connector-line" />
+          <ArrowRight size={16} className="decision-flow-connector-arrow" />
+          <span className="decision-flow-connector-line" />
+        </div>
+
+        {/* Bloque 3: RESULTADO */}
+        <div
+          className="decision-flow-card decision-flow-card--result"
+          data-decisions-gsap="flow-block"
+        >
+          <div className="decision-flow-card-header">
+            <span className="decision-flow-card-icon" aria-hidden="true">
+              {renderFlowIcon(decision.resultStep.iconName, 18)}
+            </span>
+            <span className="decision-flow-card-label">
+              {decision.resultStep.label}
+            </span>
+          </div>
+          <p className="decision-flow-card-text">{decision.resultStep.text}</p>
         </div>
       </div>
-
-      {/* 4. Bloques editoriales complementarios según la decisión */}
-
-      {/* Decisión 04: Comparativa visual entre Diseño continuo y Diseño con contenedores */}
-      {decision.visualComparison && (
-        <section
-          className="decision-detail-special-section"
-          aria-labelledby="comparison-section-heading"
-        >
-          <div className="decision-special-header">
-            <span className="decision-special-label">EVALUACIÓN VISUAL</span>
-            <h4
-              id="comparison-section-heading"
-              className="decision-special-title"
-            >
-              Comparativa de enfoque de interfaz
-            </h4>
-          </div>
-
-          <div className="decision-comparison-grid">
-            <VisualComparisonCard
-              alternative={decision.visualComparison.alternativeA}
-              isContinuous={true}
-            />
-            <VisualComparisonCard
-              alternative={decision.visualComparison.alternativeB}
-              isContinuous={false}
-            />
-          </div>
-        </section>
-      )}
-
-      {/* Decisión 02: Evidencias de modularización y componentes propios */}
-      {decision.extractedComponents && (
-        <div className="decision-detail-editorial-block">
-          <span className="decision-editorial-label">
-            Componentes extraídos durante la modularización:
-          </span>
-          <div className="decision-editorial-inline">
-            {decision.extractedComponents.map((comp, idx) => (
-              <span key={comp} className="decision-editorial-item">
-                {idx > 0 && <span className="decision-editorial-sep">·</span>}
-                <code>{comp}</code>
-              </span>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Decisión 03: Nota sobre asistencia supervisada de IA */}
-      {decision.supervisionNote && (
-        <div className="decision-detail-supervision-note">
-          <span className="decision-supervision-label">SUPERVISIÓN TÉCNICA</span>
-          <p className="decision-supervision-text">{decision.supervisionNote}</p>
-        </div>
-      )}
-
-      {/* Decisión 01: Ecosistema técnico y datos */}
-      {decision.id === 'arquitectura-datos' && (
-        <div className="decision-detail-editorial-block">
-          <span className="decision-editorial-label">
-            Ecosistema de datos y servicios:
-          </span>
-          <div className="decision-editorial-inline">
-            <span className="decision-editorial-item">ASP.NET Core (.NET 8)</span>
-            <span className="decision-editorial-sep">·</span>
-            <span className="decision-editorial-item">C# API REST</span>
-            <span className="decision-editorial-sep">·</span>
-            <span className="decision-editorial-item">PostgreSQL</span>
-            <span className="decision-editorial-sep">·</span>
-            <span className="decision-editorial-item">Esquemas aislados</span>
-          </div>
-        </div>
-      )}
     </article>
   )
 }
-

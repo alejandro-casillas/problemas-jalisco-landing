@@ -362,20 +362,10 @@ export function TechnologiesSection({
         {/* 1. ENCABEZADO DE LA SECCIÓN */}
         <header className="tech-header" data-tech-gsap="header">
           <div className="tech-eyebrow-badge">
-            <Cpu size={13} className="tech-eyebrow-icon" aria-hidden="true" />
-            <span>{TECHNOLOGIES_SECTION_META.eyebrow}</span>
+            <h2 id="tech-section-heading" className="tech-eyebrow-title">
+              {TECHNOLOGIES_SECTION_META.eyebrow}
+            </h2>
           </div>
-
-          <h2 id="tech-section-heading" className="tech-title">
-            {TECHNOLOGIES_SECTION_META.titlePrefix}{' '}
-            <span className="tech-title-accent">
-              {TECHNOLOGIES_SECTION_META.titleAccent}
-            </span>
-          </h2>
-
-          <p className="tech-description">
-            {TECHNOLOGIES_SECTION_META.description}
-          </p>
         </header>
 
         {/* 2. COMPOSICIÓN FLOTANTE DE LOGOS PROTAGONISTAS (React Native + Expo <-> .NET <-> PostgreSQL) */}
@@ -576,10 +566,6 @@ export function TechnologiesSection({
           className="tech-complementary-block"
           data-tech-gsap="complementary"
         >
-          <span className="tech-complementary-label">
-            {TECHNOLOGIES_SECTION_META.complementaryLabel}
-          </span>
-
           <ul
             className="tech-complementary-list"
             aria-label="Tecnologías complementarias utilizadas en el desarrollo"

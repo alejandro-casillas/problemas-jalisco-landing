@@ -59,6 +59,17 @@
   border: none;
 }
 
+.tech-eyebrow-title {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  margin: 0;
+  line-height: inherit;
+}
+
 .tech-eyebrow-badge .tech-eyebrow-icon {
   display: none;
 }

@@ -1,10 +1,27 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
+import { Palette, FileText, Clock, ArrowRight } from 'lucide-react'
 import { ScrollIndicator } from '../hero/ScrollIndicator'
 import {
   CONSTRUCTION_MILESTONES,
   CONSTRUCTION_PLAN_META,
+  type MilestoneIconType,
 } from '../../data/constructionPlanData'
+
+function renderMilestoneIcon(type: MilestoneIconType) {
+  switch (type) {
+    case 'palette':
+      return <Palette className="construction-milestone-icon" aria-hidden="true" />
+    case 'document':
+      return <FileText className="construction-milestone-icon" aria-hidden="true" />
+    case 'clock':
+      return <Clock className="construction-milestone-icon" aria-hidden="true" />
+    case 'dot':
+      return <span className="construction-milestone-dot-core" aria-hidden="true" />
+    default:
+      return null
+  }
+}
 
 export function ConstructionPlanSection() {
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -29,11 +46,6 @@ export function ConstructionPlanSection() {
       gsap.set('[data-construction-gsap="header"]', {
         autoAlpha: 0,
         y: 14,
-      })
-
-      gsap.set('[data-construction-gsap="subtitle"]', {
-        autoAlpha: 0,
-        y: 12,
       })
 
       gsap.set('[data-construction-gsap="line-horizontal"]', {
@@ -78,26 +90,14 @@ export function ConstructionPlanSection() {
             },
           })
 
-          // 1. Aparece la etiqueta y el título principal
+          // 1. Aparece la etiqueta
           tl.to('[data-construction-gsap="header"]', {
             autoAlpha: 1,
             y: 0,
             duration: 0.5,
-            stagger: 0.08,
           })
 
-          // 2. Entra el subtítulo
-          tl.to(
-            '[data-construction-gsap="subtitle"]',
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.45,
-            },
-            '-=0.3',
-          )
-
-          // 3. Se dibuja la línea de tiempo de forma limpia y continua
+          // 2. Se dibuja la línea de tiempo de forma limpia y continua
           tl.to(
             '[data-construction-gsap="line-horizontal"]',
             {
@@ -184,26 +184,10 @@ export function ConstructionPlanSection() {
             className="construction-eyebrow-badge"
             data-construction-gsap="header"
           >
-            <span>{CONSTRUCTION_PLAN_META.eyebrow}</span>
+            <h2 id="construction-section-heading" className="construction-eyebrow-title">
+              {CONSTRUCTION_PLAN_META.eyebrow}
+            </h2>
           </div>
-
-          <h2
-            id="construction-section-heading"
-            className="construction-title"
-            data-construction-gsap="header"
-          >
-            {CONSTRUCTION_PLAN_META.titlePrefix}{' '}
-            <span className="construction-title-accent">
-              {CONSTRUCTION_PLAN_META.titleAccent}
-            </span>
-          </h2>
-
-          <p
-            className="construction-subtitle"
-            data-construction-gsap="subtitle"
-          >
-            {CONSTRUCTION_PLAN_META.subtitle}
-          </p>
         </header>
 
         {/* 2. Línea de tiempo abierta de 4 estaciones sin contenedores ni tarjetas */}
@@ -233,6 +217,8 @@ export function ConstructionPlanSection() {
           <ol className="construction-milestones-list">
             {CONSTRUCTION_MILESTONES.map((milestone) => {
               const isAdaptation = Boolean(milestone.isAdaptationMilestone)
+              const isUpcoming = Boolean(milestone.isUpcoming)
+              const isCompact = Boolean(milestone.isCompact)
 
               return (
                 <li
@@ -241,45 +227,59 @@ export function ConstructionPlanSection() {
                     isAdaptation
                       ? 'construction-milestone-item--adaptation'
                       : ''
+                  } ${isUpcoming ? 'construction-milestone-item--upcoming' : ''} ${
+                    isCompact ? 'construction-milestone-item--compact' : ''
                   }`}
                 >
-                  {/* Nodo circular limpio sobre el eje de la línea */}
+                  {/* Nodo circular estilizado con icono representativo sobre el eje */}
                   <div
                     className="construction-milestone-node-stage"
                     aria-hidden="true"
                   >
                     <div
                       className={`construction-milestone-node ${
+                        milestone.id === 'diseno'
+                          ? 'construction-milestone-node--diseno'
+                          : ''
+                      } ${
                         isAdaptation
                           ? 'construction-milestone-node--adaptation'
                           : ''
+                      } ${isUpcoming ? 'construction-milestone-node--upcoming' : ''} ${
+                        isCompact ? 'construction-milestone-node--compact' : ''
                       }`}
                       data-construction-gsap="milestone-node"
                     >
-                      <span className="construction-milestone-node-core" />
+                      {renderMilestoneIcon(milestone.iconType)}
                     </div>
                   </div>
 
-                  {/* Jerarquía tipográfica abierta: Número, Título y Descripción */}
+                  {/* Jerarquía tipográfica abierta: Fecha, Título y Descripción */}
                   <div
-                    className="construction-milestone-copy"
+                    className={`construction-milestone-copy ${
+                      isCompact ? 'construction-milestone-copy--compact' : ''
+                    }`}
                     data-construction-gsap="milestone-copy"
                   >
-                    <span
-                      className={`construction-milestone-number ${
-                        isAdaptation
-                          ? 'construction-milestone-number--adaptation'
-                          : ''
-                      }`}
-                    >
-                      {milestone.number}
-                    </span>
+                    {milestone.dateLabel && (
+                      <span
+                        className={`construction-milestone-date ${
+                          isAdaptation
+                            ? 'construction-milestone-date--adaptation'
+                            : ''
+                        } ${isUpcoming ? 'construction-milestone-date--upcoming' : ''}`}
+                      >
+                        {milestone.dateLabel}
+                      </span>
+                    )}
                     <h3 className="construction-milestone-title">
                       {milestone.title}
                     </h3>
-                    <p className="construction-milestone-description">
-                      {milestone.description}
-                    </p>
+                    {milestone.description && (
+                      <p className="construction-milestone-description">
+                        {milestone.description}
+                      </p>
+                    )}
                   </div>
                 </li>
               )
@@ -287,22 +287,28 @@ export function ConstructionPlanSection() {
           </ol>
         </div>
 
-        {/* 3. Cierre académico discreto y editorial */}
-        <footer
-          className="construction-context-footer"
+        {/* 3. Lo que sigue: Bloque visual editorial fuera de la línea de tiempo */}
+        <aside
+          className="construction-next-phase"
           data-construction-gsap="footer"
-          aria-label="Contexto académico de la etapa"
+          aria-label="Siguiente etapa del proyecto"
         >
-          <span className="construction-context-primary">
-            {CONSTRUCTION_PLAN_META.footerPrimary}
-          </span>
-          <span className="construction-context-sep" aria-hidden="true">
-            ·
-          </span>
-          <span className="construction-context-secondary">
-            {CONSTRUCTION_PLAN_META.footerSecondary}
-          </span>
-        </footer>
+          <div className="construction-next-phase-content">
+            <div className="construction-next-phase-info">
+              <h3 className="construction-next-phase-title">
+                {CONSTRUCTION_PLAN_META.nextPhaseTitle}
+              </h3>
+              <p className="construction-next-phase-subtitle">
+                {CONSTRUCTION_PLAN_META.nextPhaseSubtitle}
+              </p>
+            </div>
+
+            <div className="construction-next-phase-indicator" aria-hidden="true">
+              <span className="construction-next-phase-pill">Fase 3 de 3</span>
+              <ArrowRight className="construction-next-phase-arrow" />
+            </div>
+          </div>
+        </aside>
       </div>
 
       {/* 4. Navegación inferior reutilizable hacia Tecnologías */}

@@ -12,6 +12,26 @@ export interface VisualAlternative {
   screenshotSrc?: string
 }
 
+export type FlowIconName =
+  | 'HelpCircle'
+  | 'Package'
+  | 'Clock'
+  | 'Layout'
+  | 'Server'
+  | 'Blocks'
+  | 'Bot'
+  | 'Palette'
+  | 'Network'
+  | 'ShieldCheck'
+  | 'Sparkles'
+  | 'Layers'
+
+export interface FlowStep {
+  label: string
+  text: string
+  iconName: FlowIconName
+}
+
 export interface DecisionItem {
   id: 'arquitectura-datos' | 'componentes-propios' | 'ia-desarrollo' | 'identidad-interfaz'
   number: '01' | '02' | '03' | '04'
@@ -24,6 +44,11 @@ export interface DecisionItem {
   decision: string
   result: string
   tags: string[]
+  /** Flujo cinematográfico minimalista de 3 bloques (Antes -> Decidimos -> Resultado) */
+  flowSubtitle: string
+  beforeStep: FlowStep
+  decidedStep: FlowStep
+  resultStep: FlowStep
   /** Componentes extraídos como evidencia (Decisión 02) */
   extractedComponents?: string[]
   /** Nota de supervisión técnica (Decisión 03) */
@@ -51,6 +76,22 @@ export const DECISIONS_DATA: readonly DecisionItem[] = [
     accentColor: 'blue',
     summary:
       'ASP.NET Core, PostgreSQL y reorganización de entornos para trabajar en paralelo.',
+    flowSubtitle: 'Una arquitectura preparada para trabajar en paralelo',
+    beforeStep: {
+      label: 'ANTES',
+      text: 'Tecnologías y entornos por definir.',
+      iconName: 'HelpCircle',
+    },
+    decidedStep: {
+      label: 'DECIDIMOS',
+      text: 'ASP.NET Core, PostgreSQL y esquemas.',
+      iconName: 'Server',
+    },
+    resultStep: {
+      label: 'RESULTADO',
+      text: 'API REST y desarrollo independiente.',
+      iconName: 'Network',
+    },
     situation:
       'Necesitábamos concretar una arquitectura funcional y facilitar el desarrollo simultáneo del equipo.',
     alternativesSummary:
@@ -69,6 +110,22 @@ export const DECISIONS_DATA: readonly DecisionItem[] = [
     accentColor: 'pink',
     summary:
       'De Tailwind a un sistema de componentes y estilos reutilizables.',
+    flowSubtitle: 'Una interfaz construida con identidad propia',
+    beforeStep: {
+      label: 'ANTES',
+      text: 'Dependencia de librerías de estilos.',
+      iconName: 'Package',
+    },
+    decidedStep: {
+      label: 'DECIDIMOS',
+      text: 'Crear componentes y estilos reutilizables.',
+      iconName: 'Blocks',
+    },
+    resultStep: {
+      label: 'RESULTADO',
+      text: 'Mayor control visual y consistencia.',
+      iconName: 'ShieldCheck',
+    },
     situation:
       'Al comenzar formalmente el frontend, después del avance inicial del backend, necesitábamos controlar la consistencia visual entre pantallas.',
     alternativesSummary:
@@ -88,6 +145,22 @@ export const DECISIONS_DATA: readonly DecisionItem[] = [
     accentColor: 'orange',
     summary:
       'Codex y Antigravity para acelerar implementación y refactorización supervisadas.',
+    flowSubtitle: 'Automatizar tareas sin delegar las decisiones',
+    beforeStep: {
+      label: 'ANTES',
+      text: 'Implementación manual de tareas repetitivas.',
+      iconName: 'Clock',
+    },
+    decidedStep: {
+      label: 'DECIDIMOS',
+      text: 'Incorporar Codex y Antigravity.',
+      iconName: 'Bot',
+    },
+    resultStep: {
+      label: 'RESULTADO',
+      text: 'Desarrollo asistido con revisión técnica.',
+      iconName: 'Sparkles',
+    },
     situation:
       'La implementación de código repetitivo, reorganización de componentes y tareas de mantenimiento consumían tiempo.',
     alternativesSummary:
@@ -108,6 +181,22 @@ export const DECISIONS_DATA: readonly DecisionItem[] = [
     accentColor: 'pink',
     summary:
       'Comparamos diseño continuo y diseño con contenedores. Elegimos una interfaz institucional.',
+    flowSubtitle: 'Una identidad coherente en toda la aplicación',
+    beforeStep: {
+      label: 'ANTES',
+      text: 'Identidad visual inicial.',
+      iconName: 'Layout',
+    },
+    decidedStep: {
+      label: 'DECIDIMOS',
+      text: 'Definir paleta, tokens y temas propios.',
+      iconName: 'Palette',
+    },
+    resultStep: {
+      label: 'RESULTADO',
+      text: 'Experiencia visual unificada.',
+      iconName: 'Layers',
+    },
     situation:
       'Necesitábamos establecer una estructura visual coherente para las diferentes pantallas de la aplicación.',
     alternativesSummary:

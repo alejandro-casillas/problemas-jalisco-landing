@@ -139,7 +139,7 @@ export function resolveThemedScreenshot(
 
 export const FEATURES_SHOWCASE_SECTION_META = {
   eyebrow: '05 / FUNCIONALIDADES',
-  totalFormatted: '07',
+  totalFormatted: '06',
 } as const
 
 export const FEATURES_SHOWCASE_ITEMS: FeatureShowcaseItem[] = [
@@ -148,69 +148,53 @@ export const FEATURES_SHOWCASE_ITEMS: FeatureShowcaseItem[] = [
     assetKey: 'pantalla-01',
     screenNumber: '01',
     screenLabel: 'PANTALLA 1',
-    title: 'Encabezado 1',
-    description:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio praesent libero, sed cursus ante dapibus diam. Sed nisi nulla quis sem at nibh elementum imperdiet duis sagittis.',
-    tags: ['Característica 01', 'Vista principal', 'Interacción'],
+    title: 'Mapa interactivo',
+    description: 'Mapa ciudadano con marcadores de incidentes en tiempo real.',
+    tags: ['Geolocalización', 'Vista general', 'Marcadores'],
   },
   {
     id: 'pantalla-2',
     assetKey: 'pantalla-02',
     screenNumber: '02',
     screenLabel: 'PANTALLA 2',
-    title: 'Encabezado 2',
-    description:
-      'Duis sagittis ipsum praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa vesti bulum lacinia arcu eget nulla class aptent taciti sociosqu ad litora torquent.',
-    tags: ['Característica 02', 'Exploración', 'Detalle'],
+    title: 'Reportes',
+    description: 'Listado de reportes ciudadanos con búsqueda, filtros y apoyos.',
+    tags: ['Exploración', 'Filtros', 'Participación'],
   },
   {
     id: 'pantalla-3',
     assetKey: 'pantalla-03',
     screenNumber: '03',
     screenLabel: 'PANTALLA 3',
-    title: 'Encabezado 3',
-    description:
-      'Curabitur sodales ligula in libero. Sed dignissim lacinia nunc curabitur tortor. Pellentesque nibh aenean quam in scelerisque sem at dolor maecenas mattis sed convallis.',
-    tags: ['Característica 03', 'Participación', 'Seguimiento'],
+    title: 'Categoría',
+    description: 'Selección del tipo de problema urbano para iniciar un reporte.',
+    tags: ['Baches', 'Alumbrado', 'Agua y drenaje'],
   },
   {
     id: 'pantalla-4',
     assetKey: 'pantalla-04',
     screenNumber: '04',
     screenLabel: 'PANTALLA 4',
-    title: 'Encabezado 4',
-    description:
-      'Maecenas mattis sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel suscipit quis, luctus non massa fusce ac turpis.',
-    tags: ['Característica 04', 'Ubicación', 'Contexto'],
+    title: 'Ubicación',
+    description: 'Búsqueda de dirección y ajuste preciso del pin sobre el mapa.',
+    tags: ['Dirección', 'Coordenadas', 'Precisión'],
   },
   {
     id: 'pantalla-5',
     assetKey: 'pantalla-05',
     screenNumber: '05',
     screenLabel: 'PANTALLA 5',
-    title: 'Encabezado 5',
-    description:
-      'Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum nulla metus, ullamcorper vel tincidunt sed, euismod in nibh. Quisque volutpat condimentum velit class aptent.',
-    tags: ['Característica 05', 'Comunidad', 'Actividad'],
+    title: 'Mi perfil',
+    description: 'Resumen de actividad del usuario, reportes publicados y apoyos.',
+    tags: ['Actividad', 'Mis reportes', 'Cuenta'],
   },
   {
     id: 'pantalla-6',
     assetKey: 'pantalla-06',
     screenNumber: '06',
     screenLabel: 'PANTALLA 6',
-    title: 'Encabezado 6',
-    description:
-      'Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nam nec ante sed lacinia urna non tincidunt.',
-    tags: ['Característica 06', 'Notificaciones', 'Estado'],
-  },
-  {
-    id: 'pantalla-7',
-    assetKey: 'pantalla-07',
-    screenNumber: '07',
-    screenLabel: 'PANTALLA 7',
-    title: 'Encabezado 7',
-    description:
-      'Nam nec ante sed lacinia, urna non tincidunt mattis, tortor neque adipiscing diam, a cursus ipsum ante quis turpis. Nulla facilisi ut fringilla suspendisse potenti.',
-    tags: ['Característica 07', 'Perfil ciudadano', 'Configuración'],
+    title: 'Más',
+    description: 'Selector de apariencia y directorio de teléfonos de atención en Jalisco.',
+    tags: ['Apariencia', 'Emergencias 911', 'SIAPA y 070'],
   },
 ]

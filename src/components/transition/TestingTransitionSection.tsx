@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
-import { ArrowRight, Sparkles } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { ScrollIndicator } from '../hero/ScrollIndicator'
 import { TransitionTopicCard } from './TransitionTopicCard'
 import { TeamMemberCard } from './TeamMemberCard'
@@ -35,16 +35,6 @@ export function TestingTransitionSection({
       gsap.set('[data-transition-gsap="eyebrow"]', {
         autoAlpha: 0,
         y: 18,
-      })
-
-      gsap.set('[data-transition-gsap="title"]', {
-        autoAlpha: 0,
-        y: 22,
-      })
-
-      gsap.set('[data-transition-gsap="subtitle"]', {
-        autoAlpha: 0,
-        y: 16,
       })
 
       gsap.set('[data-transition-gsap="topic-card"]', {
@@ -103,29 +93,7 @@ export function TestingTransitionSection({
             duration: 0.5,
           })
 
-          // 2. Encabezado principal
-          tl.to(
-            '[data-transition-gsap="title"]',
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.6,
-            },
-            '-=0.35',
-          )
-
-          // 3. Subtítulo
-          tl.to(
-            '[data-transition-gsap="subtitle"]',
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.5,
-            },
-            '-=0.4',
-          )
-
-          // 4. Tres bloques de temas
+          // 2. Tres bloques de temas
           tl.to(
             '[data-transition-gsap="topic-card"]',
             {
@@ -135,7 +103,7 @@ export function TestingTransitionSection({
               duration: 0.55,
               stagger: 0.12,
             },
-            '-=0.3',
+            '-=0.2',
           )
 
           // 5. Separador
@@ -227,24 +195,10 @@ export function TestingTransitionSection({
             className="transition-eyebrow-badge"
             data-transition-gsap="eyebrow"
           >
-            <Sparkles size={13} className="transition-eyebrow-icon" aria-hidden="true" />
-            <span>{TRANSITION_SECTION_META.eyebrow}</span>
+            <h2 id="transition-section-heading" className="transition-eyebrow-title">
+              {TRANSITION_SECTION_META.eyebrow}
+            </h2>
           </div>
-
-          <h2
-            id="transition-section-heading"
-            className="transition-title"
-            data-transition-gsap="title"
-          >
-            {TRANSITION_SECTION_META.titlePrefix}{' '}
-            <span className="transition-title-accent">
-              {TRANSITION_SECTION_META.titleAccent}
-            </span>
-          </h2>
-
-          <p className="transition-subtitle" data-transition-gsap="subtitle">
-            {TRANSITION_SECTION_META.subtitle}
-          </p>
         </header>
 
         {/* 2. Zona central: Tres bloques temáticos horizontales */}

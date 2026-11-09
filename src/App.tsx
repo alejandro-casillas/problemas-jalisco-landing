@@ -55,7 +55,7 @@ function App() {
       {/* 07. Transición a Pruebas y equipo de desarrollo (Fase 1.9) */}
       <TestingTransitionSection onNavigateToSection={handleScrollToSection} />
 
-      {/* 08. Sección provisional de destino de navegación (#probar) */}
+      {/* 08. Sección de destino de navegación (#probar) */}
       <section
         id="probar"
         className="provisional-probar-section"
@@ -68,11 +68,11 @@ function App() {
           </div>
 
           <h2 id="probar-section-heading" className="provisional-probar-title">
-            Ahora es tu turno de explorar
+            Prueba Problemas Jalisco ahora mismo
           </h2>
 
           <p className="provisional-probar-description">
-            Conoce Problemas Jalisco directamente en una aplicación funcional.
+            Interactúa directamente con la aplicación en nuestro dispositivo y evalúa la experiencia en tiempo real.
           </p>
         </div>
       </section>

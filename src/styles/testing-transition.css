@@ -78,6 +78,17 @@
   border: none;
 }
 
+.transition-eyebrow-title {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  margin: 0;
+  line-height: inherit;
+}
+
 .transition-eyebrow-badge .transition-eyebrow-icon {
   display: none;
 }
