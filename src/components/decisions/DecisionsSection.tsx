@@ -55,8 +55,7 @@ export function DecisionsSection({
 
       gsap.set('[data-decisions-gsap="card"]', {
         autoAlpha: 0,
-        y: 28,
-        scale: 0.96,
+        y: 20,
       })
 
       gsap.set('[data-decisions-gsap="footer-scroll"]', {
@@ -116,9 +115,8 @@ export function DecisionsSection({
             {
               autoAlpha: 1,
               y: 0,
-              scale: 1,
-              duration: 0.6,
-              stagger: 0.12,
+              duration: 0.55,
+              stagger: 0.08,
             },
             '-=0.3',
           )
@@ -165,8 +163,8 @@ export function DecisionsSection({
       // Entra la vista de detalle
       gsap.fromTo(
         '[data-decisions-gsap="detail-view"]',
-        { autoAlpha: 0, y: 16, scale: 0.98 },
-        { autoAlpha: 1, y: 0, scale: 1, duration: 0.4, ease: 'power2.out' },
+        { autoAlpha: 0, y: 12 },
+        { autoAlpha: 1, y: 0, duration: 0.35, ease: 'power2.out' },
       )
     } else {
       // Regresa a la cuadrícula de tarjetas
@@ -176,8 +174,8 @@ export function DecisionsSection({
         {
           autoAlpha: 1,
           y: 0,
-          duration: 0.35,
-          stagger: 0.06,
+          duration: 0.32,
+          stagger: 0.05,
           ease: 'power2.out',
         },
       )
@@ -203,9 +201,6 @@ export function DecisionsSection({
       className="decisions-section"
       aria-labelledby="decisions-section-heading"
     >
-      {/* Iluminación ambiental cinematográfica sutil */}
-      <div className="decisions-ambient-glow" aria-hidden="true" />
-
       <div className="decisions-container">
         {/* 1. Encabezado editorial centrado */}
         <header className="decisions-header">
@@ -213,7 +208,6 @@ export function DecisionsSection({
             className="decisions-eyebrow-badge"
             data-decisions-gsap="eyebrow"
           >
-            <span className="badge-dot" aria-hidden="true" />
             <span>{DECISIONS_SECTION_META.eyebrow}</span>
           </div>
 

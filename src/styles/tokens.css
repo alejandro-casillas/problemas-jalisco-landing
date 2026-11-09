@@ -50,13 +50,13 @@
   --color-overlay-light: rgba(255, 255, 255, 0.03);
 
   /* ==========================================================================
-     3. ILUMINACIÓN AMBIENTAL Y RESPLANDOR (AMBIENT LIGHTING)
+     3. ILUMINACIÓN AMBIENTAL Y RESPLANDOR (NORMALIZADO EDITORIAL SOBRIO)
      ========================================================================== */
 
-  --glow-pink-subtle: 0 0 35px -5px rgba(224, 11, 80, 0.25);
-  --glow-pink-intense: 0 0 50px -5px rgba(224, 11, 80, 0.45);
-  --glow-blue-subtle: 0 0 30px -5px rgba(88, 195, 227, 0.2);
-  --glow-orange-subtle: 0 0 30px -5px rgba(254, 139, 1, 0.2);
+  --glow-pink-subtle: none;
+  --glow-pink-intense: none;
+  --glow-blue-subtle: none;
+  --glow-orange-subtle: none;
 
   /* ==========================================================================
      4. TIPOGRAFÍA Y ESCALA RESPONSIVA (EDITORIAL)
@@ -113,19 +113,19 @@
   --container-narrow: 840px;
 
   /* ==========================================================================
-     6. RADIOS, BORDES Y SOMBRAS
+     6. RADIOS, BORDES Y SOMBRAS (GEOMETRÍA RECTA EDITORIAL)
      ========================================================================== */
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 16px;
-  --radius-xl: 24px;
-  --radius-pill: 9999px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-xl: 0px;
+  --radius-pill: 9999px; /* Exclusivo para excepciones justificadas: avatares del equipo, nodos de línea de tiempo */
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 14px 34px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-elevated: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-elevated: none;
 
   /* ==========================================================================
      7. TRANSICIONES Y PREPARACIÓN PARA GSAP

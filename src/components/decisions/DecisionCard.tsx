@@ -1,10 +1,10 @@
 import type { KeyboardEvent } from 'react'
 import {
+  ArrowRight,
   Database,
   Blocks,
   Bot,
   PanelsTopLeft,
-  ArrowRight,
   Sparkles,
 } from 'lucide-react'
 import type { DecisionItem } from '../../data/decisionsData'
@@ -19,15 +19,15 @@ interface DecisionCardProps {
 function renderDecisionIcon(iconName: DecisionItem['iconName']) {
   switch (iconName) {
     case 'Database':
-      return <Database size={22} aria-hidden="true" />
+      return <Database size={18} aria-hidden="true" />
     case 'Blocks':
-      return <Blocks size={22} aria-hidden="true" />
+      return <Blocks size={18} aria-hidden="true" />
     case 'Bot':
-      return <Bot size={22} aria-hidden="true" />
+      return <Bot size={18} aria-hidden="true" />
     case 'PanelsTopLeft':
-      return <PanelsTopLeft size={22} aria-hidden="true" />
+      return <PanelsTopLeft size={18} aria-hidden="true" />
     default:
-      return <Sparkles size={22} aria-hidden="true" />
+      return <Sparkles size={18} aria-hidden="true" />
   }
 }
 
@@ -57,33 +57,18 @@ export function DecisionCard({
       data-decisions-gsap="card"
       data-index={index}
     >
-      {/* Resplandor focal sutil al hover */}
-      <div className="decision-card-ambient-glow" aria-hidden="true" />
-
-      {/* Cabecera de la tarjeta: Número e Icono temático */}
-      <div className="decision-card-header">
-        <div className="decision-card-icon-frame" aria-hidden="true">
-          {renderDecisionIcon(decision.iconName)}
-        </div>
-        <span className="decision-card-number">{decision.number}</span>
-      </div>
-
-      {/* Contenido principal: Título y resumen conciso de dos líneas */}
+      {/* Contenido principal: Icono temático + Título a la derecha */}
       <div className="decision-card-body">
-        <h3 className="decision-card-title">{decision.title}</h3>
-        <p className="decision-card-summary">{decision.summary}</p>
+        <div className="decision-card-title-row">
+          <span className="decision-card-icon" aria-hidden="true">
+            {renderDecisionIcon(decision.iconName)}
+          </span>
+          <h3 className="decision-card-title">{decision.title}</h3>
+        </div>
       </div>
 
-      {/* Pie de tarjeta con pista interactiva discreta */}
+      {/* Pie de tarjeta con llamada a la acción */}
       <div className="decision-card-footer">
-        <div className="decision-card-tags">
-          {decision.tags.slice(0, 2).map((tag) => (
-            <span key={tag} className="decision-card-tag-pill">
-              {tag}
-            </span>
-          ))}
-        </div>
-
         <div className="decision-card-action">
           <span className="decision-card-action-text">Explorar decisión</span>
           <span className="decision-card-action-arrow" aria-hidden="true">

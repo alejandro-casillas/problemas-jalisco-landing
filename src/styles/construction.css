@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SECCIÓN 02: PLAN DE CONSTRUCCIÓN — LÍNEA DE TIEMPO CINEMATOGRÁFICA (FASE 1.7)
+   SECCIÓN 02: PLAN DE CONSTRUCCIÓN — LÍNEA DE TIEMPO EDITORIAL (ETAPA B.1)
    ========================================================================== */
 
 .construction-section {
@@ -11,29 +11,10 @@
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  padding-top: calc(76px + var(--space-4));
+  padding-top: calc(64px + var(--space-6));
   padding-bottom: var(--space-5);
   background-color: var(--color-bg-main);
   border-top: 1px solid var(--color-border-subtle);
-}
-
-/* Resplandor ambiental sutil detrás de la línea de tiempo */
-.construction-ambient-glow {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(740px, 68vw);
-  height: min(380px, 46vh);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(var(--color-brand-primary-rgb), 0.1) 0%,
-    rgba(var(--color-brand-tertiary-rgb), 0.035) 52%,
-    transparent 74%
-  );
-  filter: blur(65px);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .construction-container {
@@ -46,11 +27,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: clamp(2.25rem, 5vh, 4rem);
+  gap: clamp(2.5rem, 5.5vh, 4.25rem);
 }
 
 /* --------------------------------------------------------------------------
-   1. ENCABEZADO EDITORIAL DE PLAN DE CONSTRUCCIÓN
+   1. ENCABEZADO EDITORIAL
    -------------------------------------------------------------------------- */
 
 .construction-header {
@@ -66,15 +47,16 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0.35rem 0.9375rem;
-  border-radius: var(--radius-pill);
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--color-text-secondary);
-  background: rgba(26, 27, 31, 0.78);
-  border: 1px solid var(--color-border-medium);
+  color: var(--color-brand-primary);
+  background: transparent;
+  border: none;
 }
 
 .construction-title {
@@ -87,7 +69,7 @@
 
 .construction-title-accent {
   color: var(--color-brand-primary);
-  text-shadow: 0 0 36px rgba(var(--color-brand-primary-rgb), 0.34);
+  text-shadow: none;
 }
 
 .construction-subtitle {
@@ -98,7 +80,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. LÍNEA DE TIEMPO HORIZONTAL DE 4 ESTACIONES FLOTANTES (SIN CONTENEDORES)
+   2. LÍNEA DE TIEMPO HORIZONTAL ABIERTA (SIN TARJETAS NI CONTENEDORES)
    -------------------------------------------------------------------------- */
 
 .construction-timeline {
@@ -107,10 +89,10 @@
   padding: var(--space-4) 0;
 }
 
-/* Riel horizontal continuo alineado al centro de los nodos (top: 24px + 20px = 44px) */
+/* Riel horizontal continuo alineado al centro de los nodos (top: 16px + 18px = 34px) */
 .construction-timeline-track-h {
   position: absolute;
-  top: calc(var(--space-4) + 20px);
+  top: calc(var(--space-4) + 18px);
   left: 12.5%;
   right: 12.5%;
   height: 2px;
@@ -121,27 +103,14 @@
 .construction-timeline-track-base {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    rgba(246, 245, 243, 0.08) 0%,
-    rgba(246, 245, 243, 0.16) 50%,
-    rgba(246, 245, 243, 0.08) 100%
-  );
-  border-radius: var(--radius-pill);
+  background-color: var(--color-border-medium);
 }
 
 .construction-timeline-track-progress {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    90deg,
-    var(--color-brand-primary) 0%,
-    rgba(var(--color-brand-primary-rgb), 0.85) 38%,
-    var(--color-brand-tertiary) 66%,
-    var(--color-brand-primary) 100%
-  );
-  border-radius: var(--radius-pill);
-  box-shadow: 0 0 18px rgba(var(--color-brand-primary-rgb), 0.45);
+  background-color: var(--color-brand-primary);
+  box-shadow: none;
 }
 
 /* Riel vertical oculto en escritorio */
@@ -149,7 +118,7 @@
   display: none;
 }
 
-/* Lista de las 4 estaciones */
+/* Lista de los 4 hitos en columnas abiertas */
 .construction-milestones-list {
   position: relative;
   z-index: 2;
@@ -159,20 +128,23 @@
   list-style: none;
 }
 
-/* Estación flotante individual (sin fondo, tarjeta ni borde rectangular) */
+/* Estación abierta individual (sin fondo, sin borde, sin tarjeta) */
 .construction-milestone-item {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: var(--space-5);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
-/* Escenario del nodo circular sobre el eje (40px de altura) */
+/* Escenario del nodo circular sobre el eje (36px de altura) */
 .construction-milestone-node-stage {
   position: relative;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -181,86 +153,52 @@
 
 .construction-milestone-node {
   position: relative;
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: var(--radius-pill);
   background-color: var(--color-bg-main);
-  border: 2px solid rgba(var(--color-brand-primary-rgb), 0.72);
-  box-shadow:
-    0 0 0 5px rgba(13, 14, 16, 0.9),
-    0 0 22px rgba(var(--color-brand-primary-rgb), 0.45);
+  border: 2px solid var(--color-brand-primary);
+  box-shadow: 0 0 0 4px var(--color-bg-main);
   display: flex;
   align-items: center;
   justify-content: center;
   transition:
-    transform var(--duration-normal) var(--ease-out-smooth),
-    box-shadow var(--duration-normal) var(--ease-out-smooth),
-    border-color var(--duration-normal) var(--ease-out-smooth);
+    transform var(--duration-fast) var(--ease-out-smooth),
+    border-color var(--duration-fast) var(--ease-out-smooth);
 }
 
 .construction-milestone-item:hover .construction-milestone-node {
-  transform: scale(1.14);
-  border-color: var(--color-brand-primary);
-  box-shadow:
-    0 0 0 5px rgba(13, 14, 16, 0.92),
-    0 0 28px rgba(var(--color-brand-primary-rgb), 0.7);
-}
-
-.construction-milestone-node-halo {
-  position: absolute;
-  inset: -7px;
-  border-radius: var(--radius-pill);
-  background: radial-gradient(
-    circle,
-    rgba(var(--color-brand-primary-rgb), 0.32) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
+  transform: scale(1.1);
+  border-color: var(--color-brand-primary-hover);
 }
 
 .construction-milestone-node-core {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: var(--radius-pill);
   background-color: var(--color-brand-primary);
-  box-shadow: 0 0 10px var(--color-brand-primary);
 }
 
-/* Hito de adaptación y reprogramación (02 · Sprint II) con acento naranja #FE8B01 */
+/* Hito de adaptación y reprogramación (02 · Sprint II): acento naranja limpio sin resplandores */
 .construction-milestone-node--adaptation {
-  border-color: rgba(var(--color-brand-tertiary-rgb), 0.88);
-  box-shadow:
-    0 0 0 5px rgba(13, 14, 16, 0.9),
-    0 0 24px rgba(var(--color-brand-tertiary-rgb), 0.5);
+  border-color: var(--color-brand-tertiary);
 }
 
 .construction-milestone-item--adaptation:hover .construction-milestone-node--adaptation {
-  border-color: var(--color-brand-tertiary);
-  box-shadow:
-    0 0 0 5px rgba(13, 14, 16, 0.92),
-    0 0 30px rgba(var(--color-brand-tertiary-rgb), 0.75);
-}
-
-.construction-milestone-node--adaptation .construction-milestone-node-halo {
-  background: radial-gradient(
-    circle,
-    rgba(var(--color-brand-tertiary-rgb), 0.36) 0%,
-    transparent 70%
-  );
+  border-color: var(--color-brand-tertiary-hover);
 }
 
 .construction-milestone-node--adaptation .construction-milestone-node-core {
   background-color: var(--color-brand-tertiary);
-  box-shadow: 0 0 10px var(--color-brand-tertiary);
 }
 
-/* Jerarquía tipográfica debajo de cada nodo: 1. Número, 2. Nombre, 3. Descripción */
+/* Jerarquía tipográfica abierta de cada hito: Número, Título y Descripción */
 .construction-milestone-copy {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.375rem;
-  max-width: 230px;
+  max-width: 240px;
 }
 
 .construction-milestone-number {
@@ -276,7 +214,7 @@
 }
 
 .construction-milestone-title {
-  font-size: clamp(1.2rem, 1.55vw, 1.425rem);
+  font-size: clamp(1.2rem, 1.5vw, 1.4rem);
   font-weight: var(--font-weight-bold);
   letter-spacing: var(--tracking-tight);
   color: var(--color-text-primary);
@@ -291,7 +229,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   3. PIE DISCRETO DE CONTEXTO ACADÉMICO
+   3. CIERRE ACADÉMICO EDITORIAL DISCRETO
    -------------------------------------------------------------------------- */
 
 .construction-context-footer {
@@ -300,7 +238,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-3);
-  padding-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   letter-spacing: var(--tracking-wide);
@@ -316,25 +255,21 @@
 
 .construction-context-sep {
   color: var(--color-brand-primary);
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .construction-context-secondary {
   color: var(--color-text-muted);
 }
 
-.construction-scroll-indicator-wrap .hero-scroll-arrow-icon {
-  animation: showcaseScrollPulse 2.4s ease-in-out infinite;
-}
-
 /* --------------------------------------------------------------------------
    4. DISEÑO RESPONSIVO (1920x1080, 1366x768, TABLET Y MÓVIL)
    -------------------------------------------------------------------------- */
 
-/* Optimización para laptops de altura compacta (ej. 1366 x 768) */
+/* Optimización para laptops compactas (1366 x 768) */
 @media (min-width: 1025px) and (max-height: 820px) {
   .construction-section {
-    padding-top: calc(64px + var(--space-2));
+    padding-top: calc(56px + var(--space-3));
     padding-bottom: var(--space-3);
   }
 
@@ -343,27 +278,27 @@
   }
 
   .construction-header {
-    gap: var(--space-2);
+    gap: var(--space-1);
   }
 
   .construction-title {
-    font-size: clamp(1.9rem, 3.1vw, 2.65rem);
+    font-size: clamp(1.85rem, 3vw, 2.5rem);
   }
 
   .construction-subtitle {
-    font-size: 0.975rem;
+    font-size: 0.95rem;
   }
 
   .construction-milestone-item {
-    gap: var(--space-4);
+    gap: var(--space-3);
   }
 }
 
-/* Tablet y Móvil: Línea de tiempo vertical con lectura clara */
+/* Tablet y pantallas intermedias */
 @media (max-width: 960px) {
   .construction-section {
     min-height: auto;
-    padding: calc(82px + var(--space-6)) 0 var(--space-10);
+    padding: calc(64px + var(--space-6)) 0 var(--space-10);
     gap: var(--space-8);
   }
 
@@ -384,9 +319,9 @@
   .construction-timeline-track-v {
     display: block;
     position: absolute;
-    top: calc(var(--space-2) + 20px);
-    bottom: calc(var(--space-2) + 44px);
-    left: 19px;
+    top: calc(var(--space-2) + 18px);
+    bottom: calc(var(--space-2) + 36px);
+    left: 17px;
     width: 2px;
     pointer-events: none;
     z-index: 1;
@@ -395,32 +330,19 @@
   .construction-timeline-track-v-base {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      rgba(246, 245, 243, 0.1) 0%,
-      rgba(246, 245, 243, 0.18) 50%,
-      rgba(246, 245, 243, 0.1) 100%
-    );
-    border-radius: var(--radius-pill);
+    background-color: var(--color-border-medium);
   }
 
   .construction-timeline-track-v-progress {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      180deg,
-      var(--color-brand-primary) 0%,
-      rgba(var(--color-brand-primary-rgb), 0.85) 38%,
-      var(--color-brand-tertiary) 66%,
-      var(--color-brand-primary) 100%
-    );
-    border-radius: var(--radius-pill);
-    box-shadow: 0 0 16px rgba(var(--color-brand-primary-rgb), 0.42);
+    background-color: var(--color-brand-primary);
+    box-shadow: none;
   }
 
   .construction-milestones-list {
     grid-template-columns: 1fr;
-    gap: var(--space-7, 1.75rem);
+    gap: var(--space-6);
   }
 
   .construction-milestone-item {
@@ -439,7 +361,7 @@
 
 @media (max-width: 768px) {
   .construction-section {
-    padding: calc(74px + var(--space-4)) 0 var(--space-8);
+    padding: calc(56px + var(--space-4)) 0 var(--space-8);
   }
 
   .construction-container {
@@ -448,7 +370,6 @@
   }
 
   .construction-title {
-    font-size: clamp(1.85rem, 7.2vw, 2.35rem);
+    font-size: clamp(1.85rem, 7vw, 2.3rem);
   }
 }
-

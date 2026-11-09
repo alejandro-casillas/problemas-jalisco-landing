@@ -17,25 +17,6 @@
   border-top: 1px solid var(--color-border-subtle);
 }
 
-/* Iluminación ambiental discreta centrada tras la composición */
-.tech-ambient-glow-center {
-  position: absolute;
-  top: 46%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: min(680px, 65vw);
-  height: min(420px, 52vh);
-  background: radial-gradient(
-    ellipse at center,
-    rgba(var(--color-brand-primary-rgb), 0.1) 0%,
-    rgba(var(--color-brand-secondary-rgb), 0.03) 50%,
-    transparent 74%
-  );
-  filter: blur(65px);
-  pointer-events: none;
-  z-index: 0;
-}
-
 .tech-container {
   position: relative;
   z-index: 2;
@@ -66,19 +47,20 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0.35rem 0.9375rem;
-  border-radius: var(--radius-pill);
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
-  color: var(--color-text-secondary);
-  background: rgba(26, 27, 31, 0.78);
-  border: 1px solid var(--color-border-medium);
+  color: var(--color-brand-primary);
+  background: transparent;
+  border: none;
 }
 
-.tech-eyebrow-icon {
-  color: var(--color-brand-primary);
+.tech-eyebrow-badge .tech-eyebrow-icon {
+  display: none;
 }
 
 .tech-title {
@@ -91,7 +73,7 @@
 
 .tech-title-accent {
   color: var(--color-brand-primary);
-  text-shadow: 0 0 36px rgba(var(--color-brand-primary-rgb), 0.34);
+  text-shadow: none;
 }
 
 .tech-description {
@@ -139,46 +121,6 @@
   gap: var(--space-6);
 }
 
-/* Resplandor ambiental sutil detrás de cada grupo de logos */
-.tech-node-ambient-aura {
-  position: absolute;
-  width: 140px;
-  height: 90px;
-  border-radius: var(--radius-pill);
-  background: radial-gradient(
-    circle,
-    rgba(255, 255, 255, 0.07) 0%,
-    transparent 70%
-  );
-  filter: blur(24px);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.tech-node-group--app-movil .tech-node-ambient-aura {
-  background: radial-gradient(
-    circle,
-    rgba(97, 218, 251, 0.14) 0%,
-    transparent 72%
-  );
-}
-
-.tech-node-group--api-rest .tech-node-ambient-aura {
-  background: radial-gradient(
-    circle,
-    rgba(81, 43, 212, 0.22) 0%,
-    transparent 72%
-  );
-}
-
-.tech-node-group--base-datos .tech-node-ambient-aura {
-  background: radial-gradient(
-    circle,
-    rgba(51, 103, 145, 0.22) 0%,
-    transparent 72%
-  );
-}
-
 /* Logos oficiales protagonistas en sus proporciones y colores originales */
 .tech-official-logo {
   position: relative;
@@ -190,27 +132,23 @@
 }
 
 .tech-node-group:hover .tech-official-logo {
-  transform: translateY(-3px) scale(1.03);
+  transform: translateY(-2px);
 }
 
 .tech-official-logo--react-native {
   height: 78px;
-  filter: drop-shadow(0 6px 20px rgba(97, 218, 251, 0.22));
 }
 
 .tech-official-logo--expo {
   height: 64px;
-  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
 }
 
 .tech-official-logo--dotnet {
   height: 86px;
-  filter: drop-shadow(0 8px 24px rgba(81, 43, 212, 0.35));
 }
 
 .tech-official-logo--postgresql {
   height: 88px;
-  filter: drop-shadow(0 8px 24px rgba(51, 103, 145, 0.35));
 }
 
 /* Jerarquía tipográfica debajo de cada grupo: 1. Capa, 2. Tecnología, 3. Descripción */
@@ -318,34 +256,14 @@
 /* Destellos / pulsos correspondientes al color de su línea */
 .tech-conn-pulse-dot--upper {
   fill: var(--color-brand-tertiary);
-  filter: drop-shadow(0 0 7px rgba(var(--color-brand-tertiary-rgb), 0.95));
 }
 
 .tech-conn-pulse-dot--lower {
   fill: var(--color-brand-secondary);
-  filter: drop-shadow(0 0 7px rgba(var(--color-brand-secondary-rgb), 0.95));
-}
-
-/* Insignia central bidireccional discreta */
-.tech-connector-badge {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 26px;
-  height: 26px;
-  border-radius: var(--radius-pill);
-  background: rgba(20, 21, 25, 0.92);
-  border: 1px solid var(--color-border-medium);
-  color: var(--color-text-secondary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: var(--shadow-sm);
 }
 
 /* --------------------------------------------------------------------------
-   4. FILA DISCRETA DE TECNOLOGÍAS COMPLEMENTARIAS (ICONOS EN #58C3E3)
+   4. FILA DISCRETA DE TECNOLOGÍAS COMPLEMENTARIAS
    -------------------------------------------------------------------------- */
 
 .tech-complementary-block {
@@ -354,7 +272,8 @@
   align-items: center;
   gap: var(--space-3);
   width: 100%;
-  padding-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .tech-complementary-label {
@@ -362,7 +281,7 @@
   font-size: 0.6875rem;
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
-  letter-spacing: var(--tracking-wide);
+  letter-spacing: var(--tracking-wider);
   color: var(--color-text-muted);
 }
 
@@ -371,48 +290,58 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: var(--space-3);
+  gap: var(--space-6);
   list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
+.tech-complementary-item,
 .tech-complementary-pill {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.4rem 0.9rem;
-  border-radius: var(--radius-pill);
-  background: rgba(26, 27, 31, 0.72);
-  border: 1px solid var(--color-border-subtle);
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  border: none;
   font-size: var(--text-small);
-  transition:
-    border-color var(--duration-fast) var(--ease-out-smooth),
-    background-color var(--duration-fast) var(--ease-out-smooth);
+  transition: color var(--duration-fast) var(--ease-out-smooth);
 }
 
+.tech-complementary-item:hover,
 .tech-complementary-pill:hover {
-  border-color: var(--color-border-medium);
-  background: rgba(34, 35, 41, 0.85);
+  background: transparent;
+  border-color: transparent;
 }
 
-/* Iconos de las tecnologías complementarias exclusivamente en #58C3E3 */
+/* Iconos de las tecnologías complementarias con alternancia cromática azul / naranja */
 .tech-complementary-icon {
   display: inline-flex;
   align-items: center;
-  color: var(--color-brand-secondary);
+  color: var(--color-brand-secondary); /* Azul (#58C3E3) por defecto */
+  opacity: 0.95;
+}
+
+.tech-complementary-icon--typescript {
+  color: var(--color-brand-secondary); /* Azul #58C3E3 */
+}
+
+.tech-complementary-icon--expo-router {
+  color: var(--color-brand-tertiary); /* Naranja #FE8B01 */
+}
+
+.tech-complementary-icon--zustand {
+  color: var(--color-brand-secondary); /* Azul #58C3E3 */
+}
+
+.tech-complementary-icon--git-github {
+  color: var(--color-brand-tertiary); /* Naranja #FE8B01 */
 }
 
 .tech-complementary-name {
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-}
-
-.tech-complementary-sep {
-  color: var(--color-text-muted);
-}
-
-.tech-complementary-role {
-  font-size: var(--text-caption);
-  color: var(--color-text-secondary);
 }
 
 .tech-scroll-indicator-wrap .hero-scroll-arrow-icon {
@@ -433,13 +362,7 @@
   justify-content: center;
   padding: calc(82px + var(--space-8)) var(--space-6) var(--space-16);
   border-top: 1px solid var(--color-border-subtle);
-  background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(var(--color-brand-primary-rgb), 0.09) 0%,
-      transparent 55%
-    ),
-    var(--color-bg-main);
+  background-color: var(--color-bg-main);
 }
 
 .provisional-probar-container {
@@ -457,15 +380,20 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  padding: 0.35rem 0.875rem;
-  border-radius: var(--radius-pill);
+  padding: 0;
+  border-radius: 0;
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: var(--font-weight-semibold);
   letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
   color: var(--color-brand-primary);
-  background: rgba(var(--color-brand-primary-rgb), 0.12);
-  border: 1px solid var(--color-border-primary-subtle);
+  background: transparent;
+  border: none;
+}
+
+.provisional-probar-badge svg {
+  display: none;
 }
 
 .provisional-probar-title {
@@ -607,11 +535,12 @@
   }
 
   .tech-complementary-list {
-    gap: var(--space-2);
+    gap: var(--space-3) var(--space-4);
   }
 
+  .tech-complementary-item,
   .tech-complementary-pill {
-    padding: 0.35rem 0.75rem;
+    padding: 0;
     font-size: 0.8125rem;
   }
 }

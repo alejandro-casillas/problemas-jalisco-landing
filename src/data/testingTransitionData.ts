@@ -22,7 +22,7 @@ export interface TeamMember {
 }
 
 export const TRANSITION_SECTION_META = {
-  eyebrow: '07 / TRANSICIÓN A PRUEBAS',
+  eyebrow: '06 / TRANSICIÓN A PRUEBAS',
   titlePrefix: 'Construimos el MVP. Ahora toca',
   titleAccent: 'validarlo',
   subtitle: 'Nuestro siguiente paso hacia una solución estable y confiable.',

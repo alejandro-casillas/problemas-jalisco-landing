@@ -34,8 +34,8 @@ export interface ComplementaryTechItem {
 }
 
 export const TECHNOLOGIES_SECTION_META = {
-  eyebrow: 'INGENIERÍA DETRÁS DEL PRODUCTO',
-  titlePrefix: 'La tecnología detrás de',
+  eyebrow: '03 / TECNOLOGÍAS Y ARQUITECTURA',
+  titlePrefix: 'Ingeniería detrás de',
   titleAccent: 'cada reporte',
   description:
     'Una arquitectura que conecta la aplicación, los servicios y la información para ofrecer una experiencia ciudadana integrada.',

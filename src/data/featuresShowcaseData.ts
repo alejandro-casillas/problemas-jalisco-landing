@@ -138,7 +138,7 @@ export function resolveThemedScreenshot(
 }
 
 export const FEATURES_SHOWCASE_SECTION_META = {
-  eyebrow: 'EXPLORA LA APLICACIÓN',
+  eyebrow: '05 / FUNCIONALIDADES',
   totalFormatted: '07',
 } as const
 

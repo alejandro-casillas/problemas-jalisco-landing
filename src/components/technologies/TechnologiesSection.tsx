@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import {
-  ArrowLeftRight,
   Code2,
   Cpu,
   GitBranch,
@@ -54,8 +53,6 @@ function ArchitectureNodeGroup({ module }: ArchitectureNodeGroupProps) {
           isDualLogo ? 'tech-node-logos-stage--dual' : ''
         }`}
       >
-        <div className="tech-node-ambient-aura" aria-hidden="true" />
-
         {module.logos.map((logo) => (
           <img
             key={logo.key}
@@ -361,9 +358,6 @@ export function TechnologiesSection({
       className="tech-section"
       aria-labelledby="tech-section-heading"
     >
-      {/* Iluminación ambiental discreta */}
-      <div className="tech-ambient-glow-center" aria-hidden="true" />
-
       <div className="tech-container">
         {/* 1. ENCABEZADO DE LA SECCIÓN */}
         <header className="tech-header" data-tech-gsap="header">
@@ -569,10 +563,7 @@ export function TechnologiesSection({
                       />
                     </svg>
 
-                    {/* Insignia central bidireccional */}
-                    <div className="tech-connector-badge">
-                      <ArrowLeftRight size={12} aria-hidden="true" />
-                    </div>
+                    {/* Insignia central bidireccional eliminada por diseño más limpio */}
                   </div>
                 )}
               </Fragment>
@@ -594,15 +585,13 @@ export function TechnologiesSection({
             aria-label="Tecnologías complementarias utilizadas en el desarrollo"
           >
             {COMPLEMENTARY_TECHNOLOGIES.map((tech) => (
-              <li key={tech.id} className="tech-complementary-pill">
-                <span className="tech-complementary-icon">
+              <li key={tech.id} className="tech-complementary-item">
+                <span
+                  className={`tech-complementary-icon tech-complementary-icon--${tech.id}`}
+                >
                   {renderComplementaryIcon(tech.id)}
                 </span>
                 <span className="tech-complementary-name">{tech.name}</span>
-                <span className="tech-complementary-sep" aria-hidden="true">
-                  ·
-                </span>
-                <span className="tech-complementary-role">{tech.role}</span>
               </li>
             ))}
           </ul>

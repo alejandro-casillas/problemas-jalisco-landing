@@ -1,20 +1,5 @@
 import { useEffect } from 'react'
-import {
-  ArrowLeft,
-  Database,
-  Blocks,
-  Bot,
-  PanelsTopLeft,
-  CheckCircle2,
-  GitFork,
-  HelpCircle,
-  TrendingUp,
-  Sparkles,
-  Layers,
-  Component,
-  Cpu,
-  LayoutGrid,
-} from 'lucide-react'
+import { ArrowLeft, CheckCircle2 } from 'lucide-react'
 import {
   DECISIONS_DATA,
   type DecisionItem,
@@ -25,21 +10,6 @@ interface DecisionDetailProps {
   decision: DecisionItem
   onBack: () => void
   onSelectDecision: (id: DecisionItem['id']) => void
-}
-
-function renderDecisionIcon(iconName: DecisionItem['iconName']) {
-  switch (iconName) {
-    case 'Database':
-      return <Database size={24} aria-hidden="true" />
-    case 'Blocks':
-      return <Blocks size={24} aria-hidden="true" />
-    case 'Bot':
-      return <Bot size={24} aria-hidden="true" />
-    case 'PanelsTopLeft':
-      return <PanelsTopLeft size={24} aria-hidden="true" />
-    default:
-      return <Sparkles size={24} aria-hidden="true" />
-  }
 }
 
 /**
@@ -63,7 +33,7 @@ function VisualComparisonCard({
     >
       <div className="decision-comparison-header">
         <div className="decision-comparison-title-wrap">
-          <span className="decision-comparison-pill">{alternative.label}</span>
+          <span className="decision-comparison-tag">{alternative.label}</span>
           <h4 className="decision-comparison-name">{alternative.name}</h4>
         </div>
         <span
@@ -73,7 +43,7 @@ function VisualComparisonCard({
         >
           {isSelected ? (
             <>
-              <CheckCircle2 size={12} aria-hidden="true" />
+              <CheckCircle2 size={13} aria-hidden="true" />
               <span>{alternative.badgeText}</span>
             </>
           ) : (
@@ -185,7 +155,7 @@ export function DecisionDetail({
       data-decisions-gsap="detail-view"
       aria-labelledby="decision-detail-title"
     >
-      {/* 1. Barra superior: Botón de regreso y selector rápido 01-04 */}
+      {/* 1. Barra superior: Botón de regreso y selector en pestañas tipográficas */}
       <div className="decision-detail-topbar">
         <button
           type="button"
@@ -193,11 +163,11 @@ export function DecisionDetail({
           onClick={onBack}
           aria-label="Volver a la vista general de las cuatro decisiones"
         >
-          <ArrowLeft size={16} aria-hidden="true" />
+          <ArrowLeft size={15} aria-hidden="true" />
           <span>Volver a decisiones</span>
         </button>
 
-        {/* Selector interactivo rápido entre decisiones para presentaciones */}
+        {/* Pestañas tipográficas para navegar directamente entre decisiones */}
         <div
           className="decision-detail-quicknav"
           role="tablist"
@@ -225,87 +195,54 @@ export function DecisionDetail({
         </div>
       </div>
 
-      {/* 2. Encabezado principal de la decisión */}
+      {/* 2. Encabezado editorial de la decisión */}
       <header className="decision-detail-header">
-        <div className="decision-detail-title-group">
-          <div className="decision-detail-icon-frame" aria-hidden="true">
-            {renderDecisionIcon(decision.iconName)}
-          </div>
-          <div>
-            <div className="decision-detail-meta-pill">
-              <span>DECISIÓN {decision.number}</span>
-              <span className="decision-detail-dot" aria-hidden="true" />
-              <span>{decision.tags[0]}</span>
-            </div>
-            <h3 id="decision-detail-title" className="decision-detail-title">
-              {decision.title}
-            </h3>
-          </div>
-        </div>
-
+        <span className="decision-detail-eyebrow">
+          DECISIÓN {decision.number} / {decision.title.toUpperCase()}
+        </span>
+        <h3 id="decision-detail-title" className="decision-detail-title">
+          {decision.title}
+        </h3>
         <p className="decision-detail-lead">{decision.summary}</p>
       </header>
 
-      {/* 3. Cuadrícula de 4 pilares: Situación, Alternativas, Decisión y Resultado */}
+      {/* 3. Cuatro columnas editoriales abiertas: Situación, Alternativas, Decisión y Resultado */}
       <div className="decision-detail-pillars-grid">
-        {/* Pilar 1: Situación */}
-        <div className="decision-pillar-card decision-pillar-card--situation">
-          <div className="decision-pillar-header">
-            <span className="decision-pillar-icon" aria-hidden="true">
-              <HelpCircle size={17} />
-            </span>
-            <h4 className="decision-pillar-title">Situación</h4>
-          </div>
+        {/* Columna 1: Situación */}
+        <div className="decision-pillar-col decision-pillar-col--situation">
+          <h4 className="decision-pillar-title">Situación</h4>
           <p className="decision-pillar-text">{decision.situation}</p>
         </div>
 
-        {/* Pilar 2: Alternativas */}
-        <div className="decision-pillar-card decision-pillar-card--alternatives">
-          <div className="decision-pillar-header">
-            <span className="decision-pillar-icon" aria-hidden="true">
-              <GitFork size={17} />
-            </span>
-            <h4 className="decision-pillar-title">Alternativas</h4>
-          </div>
+        {/* Columna 2: Alternativas */}
+        <div className="decision-pillar-col decision-pillar-col--alternatives">
+          <h4 className="decision-pillar-title">Alternativas</h4>
           <p className="decision-pillar-text">{decision.alternativesSummary}</p>
         </div>
 
-        {/* Pilar 3: Decisión */}
-        <div className="decision-pillar-card decision-pillar-card--decision">
-          <div className="decision-pillar-header">
-            <span className="decision-pillar-icon" aria-hidden="true">
-              <CheckCircle2 size={17} />
-            </span>
-            <h4 className="decision-pillar-title">Decisión</h4>
-          </div>
+        {/* Columna 3: Decisión (destacada sobria) */}
+        <div className="decision-pillar-col decision-pillar-col--decision">
+          <h4 className="decision-pillar-title">Decisión</h4>
           <p className="decision-pillar-text">{decision.decision}</p>
         </div>
 
-        {/* Pilar 4: Resultado */}
-        <div className="decision-pillar-card decision-pillar-card--result">
-          <div className="decision-pillar-header">
-            <span className="decision-pillar-icon" aria-hidden="true">
-              <TrendingUp size={17} />
-            </span>
-            <h4 className="decision-pillar-title">Resultado</h4>
-          </div>
+        {/* Columna 4: Resultado */}
+        <div className="decision-pillar-col decision-pillar-col--result">
+          <h4 className="decision-pillar-title">Resultado</h4>
           <p className="decision-pillar-text">{decision.result}</p>
         </div>
       </div>
 
-      {/* 4. Bloques especiales complementarios según la decisión */}
+      {/* 4. Bloques editoriales complementarios según la decisión */}
 
-      {/* Decisión 04: Zona especial de comparación visual */}
+      {/* Decisión 04: Comparativa visual entre Diseño continuo y Diseño con contenedores */}
       {decision.visualComparison && (
         <section
           className="decision-detail-special-section"
           aria-labelledby="comparison-section-heading"
         >
           <div className="decision-special-header">
-            <div className="decision-special-badge">
-              <LayoutGrid size={13} aria-hidden="true" />
-              <span>EVALUACIÓN VISUAL</span>
-            </div>
+            <span className="decision-special-label">EVALUACIÓN VISUAL</span>
             <h4
               id="comparison-section-heading"
               className="decision-special-title"
@@ -329,14 +266,14 @@ export function DecisionDetail({
 
       {/* Decisión 02: Evidencias de modularización y componentes propios */}
       {decision.extractedComponents && (
-        <div className="decision-detail-chips-block">
-          <span className="decision-chips-label">
-            <Component size={14} aria-hidden="true" />
-            <span>Componentes extraídos durante la modularización:</span>
+        <div className="decision-detail-editorial-block">
+          <span className="decision-editorial-label">
+            Componentes extraídos durante la modularización:
           </span>
-          <div className="decision-chips-list">
-            {decision.extractedComponents.map((comp) => (
-              <span key={comp} className="decision-chip-pill">
+          <div className="decision-editorial-inline">
+            {decision.extractedComponents.map((comp, idx) => (
+              <span key={comp} className="decision-editorial-item">
+                {idx > 0 && <span className="decision-editorial-sep">·</span>}
                 <code>{comp}</code>
               </span>
             ))}
@@ -346,24 +283,26 @@ export function DecisionDetail({
 
       {/* Decisión 03: Nota sobre asistencia supervisada de IA */}
       {decision.supervisionNote && (
-        <div className="decision-detail-supervision-banner">
-          <Cpu size={16} className="decision-supervision-icon" aria-hidden="true" />
+        <div className="decision-detail-supervision-note">
+          <span className="decision-supervision-label">SUPERVISIÓN TÉCNICA</span>
           <p className="decision-supervision-text">{decision.supervisionNote}</p>
         </div>
       )}
 
-      {/* Decisión 01: Insignia de arquitectura conectada */}
+      {/* Decisión 01: Ecosistema técnico y datos */}
       {decision.id === 'arquitectura-datos' && (
-        <div className="decision-detail-chips-block">
-          <span className="decision-chips-label">
-            <Layers size={14} aria-hidden="true" />
-            <span>Ecosistema de datos y servicios:</span>
+        <div className="decision-detail-editorial-block">
+          <span className="decision-editorial-label">
+            Ecosistema de datos y servicios:
           </span>
-          <div className="decision-chips-list">
-            <span className="decision-chip-pill">ASP.NET Core (.NET 8)</span>
-            <span className="decision-chip-pill">C# API REST</span>
-            <span className="decision-chip-pill">PostgreSQL</span>
-            <span className="decision-chip-pill">Esquemas aislados</span>
+          <div className="decision-editorial-inline">
+            <span className="decision-editorial-item">ASP.NET Core (.NET 8)</span>
+            <span className="decision-editorial-sep">·</span>
+            <span className="decision-editorial-item">C# API REST</span>
+            <span className="decision-editorial-sep">·</span>
+            <span className="decision-editorial-item">PostgreSQL</span>
+            <span className="decision-editorial-sep">·</span>
+            <span className="decision-editorial-item">Esquemas aislados</span>
           </div>
         </div>
       )}

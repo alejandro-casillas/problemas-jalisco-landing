@@ -25,15 +25,15 @@ export function ConstructionPlanSection() {
     }
 
     const ctx = gsap.context(() => {
-      // Estado inicial antes de revelar al entrar en el viewport
+      // Estado inicial con desplazamientos cortos y opacidad
       gsap.set('[data-construction-gsap="header"]', {
         autoAlpha: 0,
-        y: 22,
+        y: 14,
       })
 
       gsap.set('[data-construction-gsap="subtitle"]', {
         autoAlpha: 0,
-        y: 16,
+        y: 12,
       })
 
       gsap.set('[data-construction-gsap="line-horizontal"]', {
@@ -48,17 +48,17 @@ export function ConstructionPlanSection() {
 
       gsap.set('[data-construction-gsap="milestone-node"]', {
         autoAlpha: 0,
-        scale: 0.45,
+        scale: 0.6,
       })
 
       gsap.set('[data-construction-gsap="milestone-copy"]', {
         autoAlpha: 0,
-        y: 18,
+        y: 12,
       })
 
       gsap.set('[data-construction-gsap="footer"]', {
         autoAlpha: 0,
-        y: 12,
+        y: 10,
       })
     }, sectionEl)
 
@@ -74,16 +74,16 @@ export function ConstructionPlanSection() {
         ctx.add(() => {
           const tl = gsap.timeline({
             defaults: {
-              ease: 'power3.out',
+              ease: 'power2.out',
             },
           })
 
-          // 1. Aparecen la etiqueta y el título principal con fade + translateY
+          // 1. Aparece la etiqueta y el título principal
           tl.to('[data-construction-gsap="header"]', {
             autoAlpha: 1,
             y: 0,
-            duration: 0.65,
-            stagger: 0.1,
+            duration: 0.5,
+            stagger: 0.08,
           })
 
           // 2. Entra el subtítulo
@@ -92,74 +92,73 @@ export function ConstructionPlanSection() {
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.55,
+              duration: 0.45,
             },
-            '-=0.38',
+            '-=0.3',
           )
 
-          // 3. Se dibuja la línea de tiempo de izquierda a derecha (y vertical en móvil)
+          // 3. Se dibuja la línea de tiempo de forma limpia y continua
           tl.to(
             '[data-construction-gsap="line-horizontal"]',
             {
               scaleX: 1,
-              duration: 0.9,
+              duration: 0.75,
               ease: 'power2.inOut',
             },
-            '-=0.25',
+            '-=0.2',
           )
 
           tl.to(
             '[data-construction-gsap="line-vertical"]',
             {
               scaleY: 1,
-              duration: 0.9,
+              duration: 0.75,
               ease: 'power2.inOut',
             },
             '<',
           )
 
-          // 4. Los cuatro nodos circulares se iluminan progresivamente
+          // 4. Los cuatro nodos aparecen con escala suave sin rebotes
           tl.to(
             '[data-construction-gsap="milestone-node"]',
             {
               autoAlpha: 1,
               scale: 1,
-              duration: 0.5,
-              stagger: 0.14,
-              ease: 'back.out(1.7)',
+              duration: 0.4,
+              stagger: 0.1,
+              ease: 'power2.out',
             },
-            '-=0.62',
+            '-=0.45',
           )
 
-          // 5. Los números, títulos y descripciones aparecen con stagger suave
+          // 5. Los textos de cada hito aparecen con stagger uniforme
           tl.to(
             '[data-construction-gsap="milestone-copy"]',
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.58,
-              stagger: 0.14,
+              duration: 0.45,
+              stagger: 0.1,
             },
-            '-=0.48',
+            '-=0.35',
           )
 
-          // 6. Se revela el pie institucional discreto e indicador inferior
+          // 6. Se revela el pie institucional y el indicador inferior
           tl.to(
             '[data-construction-gsap="footer"]',
             {
               autoAlpha: 1,
               y: 0,
-              duration: 0.5,
-              stagger: 0.08,
+              duration: 0.45,
             },
-            '-=0.25',
+            '-=0.2',
           )
         })
 
         observer.disconnect()
       },
       {
-        threshold: 0.22,
+        threshold: 0.2,
       },
     )
 
@@ -178,17 +177,13 @@ export function ConstructionPlanSection() {
       className="construction-section"
       aria-labelledby="construction-section-heading"
     >
-      {/* Resplandor ambiental discreto centrado detrás de la línea de tiempo */}
-      <div className="construction-ambient-glow" aria-hidden="true" />
-
       <div className="construction-container">
-        {/* 1. Encabezado editorial centrado */}
+        {/* 1. Encabezado editorial sobrio */}
         <header className="construction-header">
           <div
             className="construction-eyebrow-badge"
             data-construction-gsap="header"
           >
-            <span className="badge-dot" aria-hidden="true" />
             <span>{CONSTRUCTION_PLAN_META.eyebrow}</span>
           </div>
 
@@ -211,13 +206,13 @@ export function ConstructionPlanSection() {
           </p>
         </header>
 
-        {/* 2. Línea de tiempo de 4 estaciones flotantes sin tarjetas rectangulares */}
+        {/* 2. Línea de tiempo abierta de 4 estaciones sin contenedores ni tarjetas */}
         <div
           className="construction-timeline"
           role="region"
           aria-label="Línea de tiempo del plan de construcción"
         >
-          {/* Riel horizontal continuo (escritorio) */}
+          {/* Riel horizontal continuo y limpio (escritorio) */}
           <div className="construction-timeline-track-h" aria-hidden="true">
             <div className="construction-timeline-track-base" />
             <div
@@ -226,7 +221,7 @@ export function ConstructionPlanSection() {
             />
           </div>
 
-          {/* Riel vertical continuo (tablet y móvil) */}
+          {/* Riel vertical continuo y limpio (tablet y móvil) */}
           <div className="construction-timeline-track-v" aria-hidden="true">
             <div className="construction-timeline-track-v-base" />
             <div
@@ -248,7 +243,7 @@ export function ConstructionPlanSection() {
                       : ''
                   }`}
                 >
-                  {/* Nodo circular luminoso sobre el eje de la línea */}
+                  {/* Nodo circular limpio sobre el eje de la línea */}
                   <div
                     className="construction-milestone-node-stage"
                     aria-hidden="true"
@@ -261,12 +256,11 @@ export function ConstructionPlanSection() {
                       }`}
                       data-construction-gsap="milestone-node"
                     >
-                      <span className="construction-milestone-node-halo" />
                       <span className="construction-milestone-node-core" />
                     </div>
                   </div>
 
-                  {/* Jerarquía tipográfica flotante: 1. Número, 2. Nombre, 3. Descripción */}
+                  {/* Jerarquía tipográfica abierta: Número, Título y Descripción */}
                   <div
                     className="construction-milestone-copy"
                     data-construction-gsap="milestone-copy"
@@ -293,7 +287,7 @@ export function ConstructionPlanSection() {
           </ol>
         </div>
 
-        {/* 3. Pie discreto de contexto académico */}
+        {/* 3. Cierre académico discreto y editorial */}
         <footer
           className="construction-context-footer"
           data-construction-gsap="footer"
@@ -322,4 +316,3 @@ export function ConstructionPlanSection() {
     </section>
   )
 }
-
